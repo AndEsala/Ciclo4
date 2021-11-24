@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 class CustomAppBar extends AppBar {
   final BuildContext context;
   final String picUrl;
-  final String picUrl2;
   final Widget tile;
+  final Widget iconPets;
   final VoidCallback onSignOff;
 
   // Creating a custom AppBar that extends from Appbar with super();
@@ -13,8 +13,8 @@ class CustomAppBar extends AppBar {
       {Key? key,
       required this.context,
       required this.picUrl,
-      required this.picUrl2,
       required this.tile,
+      required this.iconPets,
       required this.onSignOff})
       : super(
           key: key,
@@ -26,7 +26,10 @@ class CustomAppBar extends AppBar {
               backgroundImage: NetworkImage(picUrl),
             ),
           ),
-          title: tile,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [iconPets, tile],
+          ),
           actions: [
             IconButton(
               icon: const Icon(
