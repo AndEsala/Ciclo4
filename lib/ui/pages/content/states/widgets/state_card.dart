@@ -3,6 +3,7 @@ import 'package:red_egresados/ui/widgets/card.dart';
 
 class StateCard extends StatelessWidget {
   final String title, content, picUrl;
+  final Icon icon;
   final VoidCallback onChat;
 
   // StateCard constructor
@@ -11,6 +12,7 @@ class StateCard extends StatelessWidget {
       required this.title,
       required this.content,
       required this.picUrl,
+      required this.icon,
       required this.onChat})
       : super(key: key);
 
@@ -39,10 +41,7 @@ class StateCard extends StatelessWidget {
       ),
       // topRightWidget widget as an IconButton
       topRightWidget: IconButton(
-        icon: Icon(
-          Icons.chat_outlined,
-          color: primaryColor,
-        ),
+        icon: icon,
         onPressed: onChat,
       ),
     );
