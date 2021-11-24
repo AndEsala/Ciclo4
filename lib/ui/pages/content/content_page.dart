@@ -46,7 +46,9 @@ class _State extends State<ContentPage> {
     return Scaffold(
       appBar: CustomAppBar(
         picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-        tile: const Text("Red Egresados"),
+        picUrl2:
+            'https://www.figma.com/file/Kq1jfKCl6ZpP3bOvjI3xDb/Proyecto-4---Red-social?node-id=23%3A146',
+        tile: const Text("Peetoze"),
         context: context,
         onSignOff: () {
           Get.offNamed('/auth');
@@ -65,24 +67,24 @@ class _State extends State<ContentPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard_rounded),
+            label: 'Actividades',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.lightbulb_outline_rounded),
             label: 'Estados',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.group_outlined),
-            label: 'Social',
+            icon: Icon(Icons.public_outlined),
+            label: 'Usuarios',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.public_outlined),
-            label: 'Verificado',
+            icon: Icon(Icons.add_comment_rounded),
+            label: 'ADD Post',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.place_outlined),
             label: 'Ubicación',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            label: 'Mensajes',
           ),
         ],
         currentIndex: _selectedIndex,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class CustomAppBar extends AppBar {
   final BuildContext context;
   final String picUrl;
+  final String picUrl2;
   final Widget tile;
   final VoidCallback onSignOff;
 
@@ -12,6 +13,7 @@ class CustomAppBar extends AppBar {
       {Key? key,
       required this.context,
       required this.picUrl,
+      required this.picUrl2,
       required this.tile,
       required this.onSignOff})
       : super(

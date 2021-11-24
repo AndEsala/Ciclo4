@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Red Egresados MinTIC',
+      title: 'Red Peetoze',
       // Quitamos el banner DEBUG
       debugShowCheckedModeBanner: false,
       // Establecemos el tema claro
