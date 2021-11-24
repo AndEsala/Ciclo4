@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'widgets/offer_card.dart';
 
-class PublicOffersScreen extends StatefulWidget {
+class PublicScreen extends StatefulWidget {
   // PublicOffersScreen empty constructor
-  const PublicOffersScreen({Key? key}) : super(key: key);
+  const PublicScreen({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 
-class _State extends State<PublicOffersScreen> {
+class _State extends State<PublicScreen> {
   final items = List<String>.generate(20, (i) => "Item $i");
 
   @override

@@ -27,6 +27,7 @@ class OfferCard extends StatelessWidget {
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
       title: title,
+
       content: Text(
         content,
         style: Theme.of(context).textTheme.bodyText1,

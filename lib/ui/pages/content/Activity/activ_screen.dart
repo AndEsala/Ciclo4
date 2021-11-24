@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:red_egresados/ui/pages/content/states/widgets/type_state.dart';
-import 'widgets/state_card.dart';
+import 'package:red_egresados/ui/pages/content/Activity/widgets/type_activ.dart';
+import 'widgets/activ_card.dart';
 
-class StatesScreen extends StatefulWidget {
+class ActivScreen extends StatefulWidget {
   // StatesScreen empty constructor
-  const StatesScreen({Key? key}) : super(key: key);
+  const ActivScreen({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 
-class _State extends State<StatesScreen> {
+class _State extends State<ActivScreen> {
   final Icon icono = Icon(Icons.notifications);
 
   final stateCardChat = StateCard(

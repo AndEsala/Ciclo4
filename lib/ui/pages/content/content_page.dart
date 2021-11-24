@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:red_egresados/ui/pages/content/location/location_screen.dart';
-import 'package:red_egresados/ui/pages/content/public_offers/public_offers_screen.dart';
-import 'package:red_egresados/ui/pages/content/states/states_screen.dart';
-import 'package:red_egresados/ui/pages/content/users_offers/users_offers_screen.dart';
+import 'package:red_egresados/ui/pages/content/post/postScreen.dart';
+import 'package:red_egresados/ui/pages/content/public_post/public_offers_screen.dart';
+import 'package:red_egresados/ui/pages/content/Activity/activ_screen.dart';
+import 'package:red_egresados/ui/pages/content/statesP/state_screen.dart';
+
 import 'package:red_egresados/ui/widgets/appbar.dart';
 
 class ContentPage extends StatefulWidget {
@@ -15,7 +17,7 @@ class ContentPage extends StatefulWidget {
 
 class _State extends State<ContentPage> {
   int _selectedIndex = 0;
-  Widget _content = const StatesScreen();
+  Widget _content = const ActivScreen();
 
   // NavBar action
   void _onItemTapped(int index) {
@@ -23,18 +25,19 @@ class _State extends State<ContentPage> {
       _selectedIndex = index;
       switch (_selectedIndex) {
         case 1:
-          _content = const UsersOffersScreen();
+          _content = const StateScreen();
           break;
         case 2:
-          _content = const PublicOffersScreen();
+          _content = const PublicScreen();
           break;
         case 3:
-          _content = const LocationScreen();
+          _content = const PostScreen();
           break;
         case 4:
+          _content = const LocationScreen();
           break;
         default:
-          _content = const StatesScreen();
+          _content = const ActivScreen();
       }
     });
   }

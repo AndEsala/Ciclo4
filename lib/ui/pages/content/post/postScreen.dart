@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
-import 'widgets/offer_card.dart';
+// ignore_for_file: file_names
 
-class UsersOffersScreen extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'widget/post_card.dart';
+
+class PostScreen extends StatefulWidget {
   // UsersOffersScreen empty constructor
-  const UsersOffersScreen({Key? key}) : super(key: key);
+  const PostScreen({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 
-class _State extends State<UsersOffersScreen> {
-  final items = List<String>.generate(20, (i) => "Item $i");
+class _State extends State<PostScreen> {
+  final items = List<String>.generate(1, (i) => "Item $i");
 
   @override
   Widget build(BuildContext context) {

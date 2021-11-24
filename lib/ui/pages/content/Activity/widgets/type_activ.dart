@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:red_egresados/ui/pages/content/states/widgets/state_card.dart';
+import 'package:red_egresados/ui/pages/content/Activity/widgets/activ_card.dart';
 
 class ContentStates extends StatelessWidget {
   final String title;
