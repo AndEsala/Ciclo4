@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/state_card.dart';
+import 'package:get/route_manager.dart';
 
 class StateScreen extends StatefulWidget {
   // UsersOffersScreen empty constructor
@@ -10,7 +11,8 @@ class StateScreen extends StatefulWidget {
 }
 
 class _State extends State<StateScreen> {
-  final items = List<String>.generate(20, (i) => "Item $i");
+  final items = List<String>.generate(4, (i) => "Item $i");
+  final textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
