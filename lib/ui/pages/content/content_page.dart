@@ -46,9 +46,8 @@ class _State extends State<ContentPage> {
     return Scaffold(
       appBar: CustomAppBar(
         picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-        picUrl2:
-            'https://www.figma.com/file/Kq1jfKCl6ZpP3bOvjI3xDb/Proyecto-4---Red-social?node-id=23%3A146',
         tile: const Text("Peetoze"),
+        iconPets: Icon(Icons.pets),
         context: context,
         onSignOff: () {
           Get.offNamed('/auth');
