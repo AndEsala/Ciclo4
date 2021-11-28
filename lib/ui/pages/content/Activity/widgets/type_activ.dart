@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:red_egresados/ui/pages/content/Activity/widgets/activ_card.dart';
 
-class ContentStates extends StatelessWidget {
+class ContentActy extends StatelessWidget {
   final String title;
   List<Widget> states;
-  ContentStates({required this.title, required this.states});
+  ContentActy({required this.title, required this.states});
 
   @override
   Widget build(BuildContext context) {

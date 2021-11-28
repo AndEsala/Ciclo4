@@ -60,9 +60,9 @@ class _State extends State<ActivScreen> {
 
         return Column(
           children: [
-            ContentStates(title: "Chats", states: itemsChats),
-            ContentStates(title: "Notificaciones", states: itemsNotify),
-            ContentStates(title: "Adopción", states: itemsAdop)
+            ContentActy(title: "Chats", states: itemsChats),
+            ContentActy(title: "Notificaciones", states: itemsNotify),
+            ContentActy(title: "Adopción", states: itemsAdop)
           ],
         );
       },

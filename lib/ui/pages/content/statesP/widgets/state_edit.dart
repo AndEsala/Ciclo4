@@ -17,7 +17,7 @@ class StateEdit extends StatelessWidget {
           textCapitalization: TextCapitalization.words,
           textAlign: TextAlign.left,
           maxLength: 55,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.edit),
             hintText: 'Publica tu Estado',
             helperText: 'Estado',
