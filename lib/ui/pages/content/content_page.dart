@@ -5,6 +5,7 @@ import 'package:red_egresados/ui/pages/content/post/postScreen.dart';
 import 'package:red_egresados/ui/pages/content/public_post/public_offers_screen.dart';
 import 'package:red_egresados/ui/pages/content/Activity/activ_screen.dart';
 import 'package:red_egresados/ui/pages/content/statesP/state_screen.dart';
+import 'package:red_egresados/ui/pages/content/statesP/widgets/state_edit.dart';
 
 import 'package:red_egresados/ui/widgets/appbar.dart';
 
@@ -24,6 +25,9 @@ class _State extends State<ContentPage> {
     setState(() {
       _selectedIndex = index;
       switch (_selectedIndex) {
+        case 0:
+          _content = const ActivScreen();
+          break;
         case 1:
           _content = const StateScreen();
           break;
