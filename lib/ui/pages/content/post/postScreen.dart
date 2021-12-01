@@ -23,6 +23,7 @@ class _State extends State<PostScreen> {
         return Column(
           children: [
             StateEdit(),
+            TextField(),
             PostCard(
               title: 'Ludvig Wiese',
               content:

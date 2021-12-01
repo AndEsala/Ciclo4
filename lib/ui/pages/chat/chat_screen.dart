@@ -5,7 +5,8 @@ import 'package:red_egresados/domain/models/user_model.dart';
 class ChatScreen extends StatefulWidget {
   final User user;
 
-  ChatScreen({required this.user});
+  // ignore: use_key_in_widget_constructors
+  const ChatScreen({required this.user});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -15,16 +16,16 @@ class _ChatScreenState extends State<ChatScreen> {
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
-          ? EdgeInsets.only(
+          ? const EdgeInsets.only(
               top: 8.0,
               bottom: 8.0,
               left: 80.0,
             )
-          : EdgeInsets.only(
+          : const EdgeInsets.only(
               top: 8.0,
               bottom: 8.0,
             ),
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 25.0,
         vertical: 15.0,
       ),
@@ -32,11 +33,11 @@ class _ChatScreenState extends State<ChatScreen> {
       decoration: BoxDecoration(
         color: isMe ? Colors.white : Colors.blue[60],
         borderRadius: isMe
-            ? BorderRadius.only(
+            ? const BorderRadius.only(
                 topLeft: Radius.circular(15.0),
                 bottomLeft: Radius.circular(15.0),
               )
-            : BorderRadius.only(
+            : const BorderRadius.only(
                 topRight: Radius.circular(15.0),
                 bottomRight: Radius.circular(15.0),
               ),

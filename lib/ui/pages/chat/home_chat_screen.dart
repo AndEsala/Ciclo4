@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:red_egresados/domain/models/message_model.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:red_egresados/ui/pages/chat/widgets/category_selector.dart';
 import 'package:red_egresados/ui/pages/chat/widgets/contacts.dart';
 import 'package:red_egresados/ui/pages/chat/widgets/recent_chats.dart';
 
-class ChatScreen extends StatelessWidget {
+class HomeChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +18,9 @@ class ChatScreen extends StatelessWidget {
                   icon: Icon(Icons.chevron_left_outlined),
                   iconSize: 30.0,
                   color: Colors.white,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Get.offNamed('/content');
+                  }),
               title: Text(
                 'Chats',
                 style: TextStyle(
