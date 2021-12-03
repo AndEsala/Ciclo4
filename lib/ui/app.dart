@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:red_egresados/domain/controller/controllerauth.dart';
 import 'package:red_egresados/ui/pages/authentication/auth_page.dart';
 import 'package:red_egresados/ui/pages/chat/home_chat_screen.dart';
 /* import 'package:red_egresados/ui/pages/chat/chat_screen.dart';

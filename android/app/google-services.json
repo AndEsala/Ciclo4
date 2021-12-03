@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "876341536543",
+    "project_id": "peetoze-e84d9",
+    "storage_bucket": "peetoze-e84d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876341536543:android:cb7ae3b1edb39f6980322a",
+        "android_client_info": {
+          "package_name": "com.example.red_egresados"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876341536543-12t1bf64c5810dsrftg39rp5pnrhkbu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkDV6BhGqfNUmd4t5uN_TAWV8LE58bPLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876341536543-12t1bf64c5810dsrftg39rp5pnrhkbu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

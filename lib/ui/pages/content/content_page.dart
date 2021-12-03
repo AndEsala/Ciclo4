@@ -1,12 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:red_egresados/domain/controller/controllerauth.dart';
 import 'package:red_egresados/ui/pages/content/location/location_screen.dart';
 import 'package:red_egresados/ui/pages/content/post/postScreen.dart';
 import 'package:red_egresados/ui/pages/content/public_post/public_offers_screen.dart';
 import 'package:red_egresados/ui/pages/content/Activity/activ_screen.dart';
 import 'package:red_egresados/ui/pages/content/statesP/state_screen.dart';
-import 'package:red_egresados/ui/pages/content/statesP/widgets/state_edit.dart';
 
+import 'package:get/get.dart';
 import 'package:red_egresados/ui/widgets/appbar.dart';
 
 class ContentPage extends StatefulWidget {
@@ -19,6 +21,8 @@ class ContentPage extends StatefulWidget {
 class _State extends State<ContentPage> {
   int _selectedIndex = 0;
   Widget _content = const ActivScreen();
+  Controllerauth controluser = Get.find();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   // NavBar action
   void _onItemTapped(int index) {
@@ -52,14 +56,14 @@ class _State extends State<ContentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-        tile: const Text("Peetoze"),
-        iconPets: Icon(Icons.pets),
-        context: context,
-        onSignOff: () {
-          Get.offNamed('/auth');
-        },
-      ),
+          picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
+          tile: const Text("Peetoze"),
+          iconPets: Icon(Icons.pets),
+          context: context,
+          onSignOff: () {
+            controluser.logOut();
+            Get.offNamed('/auth');
+          }),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
@@ -97,5 +101,9 @@ class _State extends State<ContentPage> {
         onTap: _onItemTapped,
       ),
     );
+  }
+
+  _signOut() async {
+    await _firebaseAuth.signOut();
   }
 }
