@@ -26,14 +26,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Get.offNamed('/content');
+              },
+              icon: Icon(Icons.chevron_left)),
           title: const Text('Chat Peetoze'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.offNamed('/content');
-                },
-                icon: Icon(Icons.home))
-          ],
         ),
         body: Padding(
             padding: EdgeInsets.all(16.0),

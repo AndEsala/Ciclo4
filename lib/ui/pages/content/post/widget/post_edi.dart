@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StateEdit extends StatelessWidget {
+class PostEdit extends StatelessWidget {
   final textController = TextEditingController();
 
   @override
@@ -16,12 +16,13 @@ class StateEdit extends StatelessWidget {
           autocorrect: true,
           textCapitalization: TextCapitalization.words,
           textAlign: TextAlign.left,
-          maxLength: 55,
-          // maxLines: 3,
+          maxLength: 255,
+          maxLines: 10,
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.edit),
-              hintText: 'Publica tu Estado',
-              helperText: 'Estado'),
+              alignLabelWithHint: false,
+              hintText: 'Publica tu Post',
+              helperText: 'Post'),
         ),
         // ElevatedButton(onPressed: () {}, child: Text('Publicar'))
       ),

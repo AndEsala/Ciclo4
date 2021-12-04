@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:red_egresados/domain/controller/controlchat.dart';
 import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/domain/controller/controllerrealtime.dart';
+import 'package:red_egresados/data/controllerrealtime.dart';
 import 'package:red_egresados/ui/app.dart';
 import 'package:get/get.dart';
 
