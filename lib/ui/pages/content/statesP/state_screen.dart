@@ -27,7 +27,7 @@ class _State extends State<StateScreen> {
   List<Widget> _states() {
     List<Widget> estados = [];
 
-    for (var i = 0; i < 10; i++) {
+    /* for (var i = 0; i < 10; i++) {
       Widget estado = StateCard(
         title: 'Estado de Didier',
         content: ' i am happy with my new pet :D ',
@@ -37,7 +37,7 @@ class _State extends State<StateScreen> {
       );
 
       estados.add(estado);
-    }
+    } */
 
     return estados;
   }

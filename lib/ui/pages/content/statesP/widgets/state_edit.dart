@@ -16,15 +16,15 @@ class StateEdit extends StatelessWidget {
           autocorrect: true,
           textCapitalization: TextCapitalization.words,
           textAlign: TextAlign.left,
-          maxLength: 55,
+          maxLength: 255,
+          maxLines: 10,
           decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.edit),
-            hintText: 'Publica tu Estado',
-            helperText: 'Estado',
-          ),
+              prefixIcon: Icon(Icons.edit),
+              hintText: 'Publica tu Estado',
+              helperText: 'Estado'),
         ),
       ),
-      ElevatedButton(onPressed: () {}, child: Text('Publicar'))
+      ElevatedButton(onPressed: () {}, child: const Text('Publicar'))
     ]);
   }
 }

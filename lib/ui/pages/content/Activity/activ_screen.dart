@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:red_egresados/ui/pages/content/Activity/widgets/type_activ.dart';
 import 'widgets/activ_card.dart';
 
@@ -60,16 +62,34 @@ class _State extends State<ActivScreen> {
 
         return Column(
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Get.offNamed('/chats');
+              },
+              child: const Text('Chats'),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.blue, shape: StadiumBorder()),
+            ),
             ContentActy(
               title: "Chats",
-              states: itemsChats,
+              states: const [],
               redirect: 'chats',
             ),
+            TextButton(
+                onPressed: () {
+                  Get.offNamed('/notify');
+                },
+                child: Text('Notificaciones')),
             ContentActy(
               title: "Notificaciones",
               states: itemsNotify,
               redirect: 'notifys',
             ),
+            TextButton(
+                onPressed: () {
+                  Get.offNamed('/adoption');
+                },
+                child: Text('Adopción')),
             ContentActy(
               title: "Adopción",
               states: itemsAdop,
