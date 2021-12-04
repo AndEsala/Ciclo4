@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:red_egresados/ui/pages/content/Activity/widgets/activ_card.dart';
 
 class ContentActy extends StatelessWidget {
   final String title;

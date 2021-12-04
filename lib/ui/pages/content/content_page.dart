@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:red_egresados/domain/controller/controllerauth.dart';
@@ -22,7 +21,6 @@ class _State extends State<ContentPage> {
   int _selectedIndex = 0;
   Widget _content = const ActivScreen();
   Controllerauth controluser = Get.find();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   // NavBar action
   void _onItemTapped(int index) {
@@ -101,9 +99,5 @@ class _State extends State<ContentPage> {
         onTap: _onItemTapped,
       ),
     );
-  }
-
-  _signOut() async {
-    await _firebaseAuth.signOut();
   }
 }

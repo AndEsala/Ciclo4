@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:red_egresados/domain/controller/controllerauth.dart';
+import 'package:red_egresados/ui/pages/content/content_page.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;
@@ -26,7 +27,7 @@ class _State extends State<LoginScreen> {
     print('_login $theEmail $thePassword');
     try {
       await controluser.ingresarEmail(theEmail, thePassword);
-      if (controluser.userf != 'Ingrese sus datos') {
+      if (controluser.userf != 'Ingrese sus datos' || controluser.userf == '') {
         Future.delayed(Duration(seconds: 2));
         Get.offNamed('/content');
       }
@@ -49,7 +50,11 @@ class _State extends State<LoginScreen> {
   _google() async {
     try {
       await controluser.ingresarGoogle();
-      Get.offNamed('/content');
+      if (controluser.userf != 'Ingrese sus datos' ||
+          controluser.userf.isEmpty) {
+        Future.delayed(Duration(seconds: 2));
+        Get.to(() => ContentPage());
+      }
     } catch (err) {
       print(err.toString());
       Get.snackbar(

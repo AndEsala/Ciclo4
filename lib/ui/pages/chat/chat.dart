@@ -19,6 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _mensajeController = TextEditingController();
   Controlchat controlchat = Get.find();
   Controllerauth controluser = Get.find();
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollHaciaAbajo());
@@ -29,10 +30,9 @@ class _ChatScreenState extends State<ChatScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  controluser.logOut();
-                  Get.offNamed('/auth');
+                  Get.offNamed('/content');
                 },
-                icon: Icon(Icons.logout))
+                icon: Icon(Icons.home))
           ],
         ),
         body: Padding(
