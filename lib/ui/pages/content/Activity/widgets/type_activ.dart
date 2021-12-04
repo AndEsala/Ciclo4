@@ -17,11 +17,6 @@ class ContentActy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextButton(
-            onPressed: () {
-              Get.offNamed('/$redirect');
-            },
-            child: Text(title)),
         Column(
           children: states,
         )
