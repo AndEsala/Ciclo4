@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:red_egresados/domain/controller/controllerauth.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;
@@ -11,9 +13,30 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _State extends State<SignUpScreen> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  // final nameController = TextEditingController();
+  // final emailController = TextEditingController();
+  // final passwordController = TextEditingController();
+  TextEditingController usuario = TextEditingController();
+  TextEditingController passwd = TextEditingController();
+  Controllerauth controluser = Get.find();
+
+  _register(theEmail, thePassword) async {
+    print('_login $theEmail $thePassword');
+    try {
+      await controluser.registrarEmail(theEmail, thePassword);
+      if (controluser.userf != 'Ingrese sus datos') {
+        Get.offNamed('/content');
+      }
+    } catch (err) {
+      print(err.toString());
+      Get.snackbar(
+        "Login",
+        err.toString(),
+        icon: Icon(Icons.logout, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +53,20 @@ class _State extends State<SignUpScreen> {
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: TextField(
+          //     controller: nameController,
+          //     decoration: const InputDecoration(
+          //       border: OutlineInputBorder(),
+          //       labelText: 'Usuario',
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Usuario',
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: emailController,
+              controller: usuario,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Correo electrónico',
@@ -53,7 +76,7 @@ class _State extends State<SignUpScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              controller: passwordController,
+              controller: passwd,
               obscureText: true,
               obscuringCharacter: "*",
               decoration: const InputDecoration(
@@ -70,6 +93,7 @@ class _State extends State<SignUpScreen> {
                   padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
                     onPressed: () {
+                      _register(usuario.text, passwd.text);
                       Get.offNamed('/content');
                     },
                     child: const Text("Registrar"),
@@ -90,9 +114,9 @@ class _State extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    // nameController.dispose();
+    usuario.dispose();
+    passwd.dispose();
     super.dispose();
   }
 }

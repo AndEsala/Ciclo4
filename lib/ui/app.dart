@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
+
 import 'package:red_egresados/ui/pages/authentication/auth_page.dart';
-import 'package:red_egresados/ui/pages/chat/home_chat_screen.dart';
+import 'package:red_egresados/ui/pages/chat/chat.dart';
+
 /* import 'package:red_egresados/ui/pages/chat/chat_screen.dart';
 import 'package:red_egresados/ui/pages/chat/home_chat_screen.dart'; */
 import 'package:red_egresados/ui/pages/content/content_page.dart';
@@ -29,7 +30,7 @@ class App extends StatelessWidget {
       routes: {
         '/auth': (context) => const AuthenticationPage(),
         '/content': (context) => const ContentPage(),
-        '/chats': (context) => HomeChatScreen(),
+        '/chats': (context) => ChatScreen(),
       },
     );
   }

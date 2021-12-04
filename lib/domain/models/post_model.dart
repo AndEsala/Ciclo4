@@ -1,13 +1,11 @@
-import 'package:intl/intl.Dart';
-
-class Message {
+class Post {
   final String texto;
   final DateTime fecha;
   final String name;
 
-  Message(this.texto, this.fecha, this.name);
+  Post(this.texto, this.fecha, this.name);
 
-  Message.fromJson(Map<dynamic, dynamic> json)
+  Post.fromJson(Map<dynamic, dynamic> json)
       : fecha = DateTime.parse(json['fecha'] as String),
         texto = json['texto'] as String,
         name = json['name'] as String;
@@ -17,11 +15,4 @@ class Message {
         'texto': texto,
         'name': name,
       };
-}
-
-// debo llamar este metodo para extraer la hora
-String formatdate(fecha) {
-  var formatter = new DateFormat.jm();
-  String formatted = formatter.format(fecha);
-  return formatted; // something like 04:34 pm
 }
