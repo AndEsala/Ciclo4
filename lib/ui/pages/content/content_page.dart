@@ -31,7 +31,7 @@ class _State extends State<ContentPage> {
           _content = const ActivScreen();
           break;
         case 1:
-          _content = const StateScreen();
+          _content = const StatesScreen();
           break;
         case 2:
           _content = const PublicScreen();

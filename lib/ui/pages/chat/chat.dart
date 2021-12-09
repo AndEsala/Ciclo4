@@ -63,8 +63,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _enviarMensaje() {
     if (_puedoEnviarMensaje()) {
-      final mensaje =
-          Message(_mensajeController.text, DateTime.now(), controluser.name);
+      final mensaje = Message(_mensajeController.text, DateTime.now(),
+          controluser.name, controluser.uid, controluser.photorul);
       controlchat.guardarMensaje(mensaje);
       _mensajeController.clear();
       setState(() {});
@@ -81,9 +81,11 @@ class _ChatScreenState extends State<ChatScreen> {
       itemBuilder: (context, snapshot, animation, index) {
         final json = snapshot.value as Map<dynamic, dynamic>;
         print('Id_unico:${snapshot.key}');
+        var idmensaje = snapshot.key;
 
         final mensaje = Message.fromJson(json);
-        return MessageWidget(mensaje.texto, mensaje.fecha, mensaje.name);
+        return MessageWidget(mensaje.texto, mensaje.fecha, mensaje.name,
+            idmensaje!, mensaje.uid, mensaje.photo);
       },
     ));
   }

@@ -23,8 +23,14 @@ class AppCard extends StatelessWidget {
     return Card(
       elevation: 2,
       child: Container(
-        padding: const EdgeInsets.only(
-            top: 4.0, bottom: 16.0, left: 8.0, right: 8.0),
+        decoration: BoxDecoration(
+            color: Colors.blue[30],
+            border: Border.all(
+              color: Colors.blue,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        padding:
+            const EdgeInsets.only(top: 3.0, bottom: 8.0, left: 8.0, right: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -38,8 +44,8 @@ class AppCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 15.0),
                   ),
                 ),
                 topRightWidget != null
@@ -50,7 +56,7 @@ class AppCard extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 6.0,
+              height: 2,
             ),
             if (content != null)
               Padding(

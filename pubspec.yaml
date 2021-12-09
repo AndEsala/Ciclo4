@@ -31,8 +31,7 @@ dependencies:
   google_sign_in:  
   font_awesome_flutter: 
   firebase_database:  
-  
-  # cloud_firestore: 
+  cloud_firestore: 
   # shared_preferences: ^2.0.8
   # permission_handler: ^8.2.2
   # geolocator: ^7.7.0

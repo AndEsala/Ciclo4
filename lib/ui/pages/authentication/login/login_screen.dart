@@ -126,16 +126,17 @@ class _State extends State<LoginScreen> {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 14.0),
+                                      horizontal: 5.0, vertical: 30.0),
                                   child: SignInButton(
                                     Buttons.Email,
-                                    text: "Iniciar Sesión con Email",
+                                    text: "Iniciar con Email",
                                     shape: const StadiumBorder(),
                                     mini: false,
                                     onPressed: () async {
                                       _inicio(usuario.text, passwd.text);
                                     },
-                                    padding: const EdgeInsets.all(4),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 30.0),
                                   ),
                                 ),
                               ),

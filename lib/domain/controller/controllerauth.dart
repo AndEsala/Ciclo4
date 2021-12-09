@@ -21,6 +21,10 @@ class Controllerauth extends GetxController {
           email: _email, password: _passw);
 
       _usuarior.value = usuario.user!.email;
+      _name.value = usuario.user!.email;
+      _photo.value =
+          'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png';
+      _uid.value = usuario.user!.uid;
 
       Get.snackbar('Bienvenido', 'Registro exitoso',
           icon: Icon(Icons.person, color: Colors.blue),
@@ -50,6 +54,9 @@ class Controllerauth extends GetxController {
       _usuarior.value = usuario.user!.email;
 
       _uid.value = usuario.user!.uid;
+      _name.value = usuario.user!.email;
+      _photo.value =
+          'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png';
 
       Get.snackbar('Bienvenido', 'Ingreso exitoso',
           icon: Icon(Icons.person, color: Colors.blue),
@@ -90,6 +97,7 @@ class Controllerauth extends GetxController {
       _usuarior.value = usuario.user!.email;
       _uid.value = usuario.user!.uid;
       _name.value = usuario.user!.displayName;
+      _photo.value = usuario.user!.photoURL;
       Get.snackbar('Bienvenido', 'Ingreso con su cuenta de Google',
           icon: Icon(Icons.person, color: Colors.blue),
           snackPosition: SnackPosition.TOP);
