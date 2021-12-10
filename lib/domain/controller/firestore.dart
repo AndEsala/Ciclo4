@@ -13,13 +13,13 @@ class ControllerFirestore extends GetxController {
     return listado.snapshots();
   }
 
-  Future<void> crearestado(Map<String, dynamic> post, foto) async {
+  Future<void> crearestado(Map<String, dynamic> Post, foto) async {
     var url = '';
     if (foto != null) url = await cargarfoto(foto, DateTime.now().toString());
     print(url);
-    post['fotopost'] = url.toString();
+    Post['fotopost'] = url.toString();
 
-    await _db.collection('Post').doc().set(post).catchError((e) {
+    await _db.collection('Post').doc().set(Post).catchError((e) {
       print(e);
     });
     //return true;

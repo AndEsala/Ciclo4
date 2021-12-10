@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:red_egresados/ui/widgets/card.dart';
+import 'package:red_peetoze/ui/widgets/card.dart';
 
 class OfferCard extends StatelessWidget {
   final String title, content, arch, level;

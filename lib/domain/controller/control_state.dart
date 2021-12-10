@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:red_egresados/data/firestore_state.dart';
-import 'package:red_egresados/domain/models/user_states.dart';
+import 'package:red_peetoze/data/firestore_state.dart';
+import 'package:red_peetoze/domain/models/user_states.dart';
 
 class StatusManager {
   final _database = FirestoreDatabase();

@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:red_egresados/ui/app.dart';
-import 'package:red_egresados/ui/pages/authentication/login/login_screen.dart';
-import 'package:red_egresados/main.dart';
+import 'package:red_peetoze/ui/app.dart';
+import 'package:red_peetoze/ui/pages/authentication/login/login_screen.dart';
+import 'package:red_peetoze/main.dart';
 
-void main(){
+void main() {
   group('Encontrar widgets', () {
-
-    testWidgets('Buscar widgets',(WidgetTester tester) async{
+    testWidgets('Buscar widgets', (WidgetTester tester) async {
       await tester.pumpWidget(App());
       final widget1 = find.byType(Scaffold);
       expect(widget1, findsWidgets);
@@ -18,10 +16,7 @@ void main(){
 
       final widget3 = find.byType(TextFormField);
       expect(widget3, findsWidgets);
-
     });
-
-
   });
 
   group('Interaccion con widgets', () {
@@ -38,4 +33,4 @@ void main(){
       expect(find.text(password), findsOneWidget);
     });
   });
-}    
+}

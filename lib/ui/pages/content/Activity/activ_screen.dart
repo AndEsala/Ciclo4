@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:red_egresados/ui/pages/content/Activity/widgets/type_activ.dart';
+import 'package:red_peetoze/ui/pages/content/Activity/widgets/type_activ.dart';
 import 'widgets/activ_card.dart';
 
 class ActivScreen extends StatefulWidget {

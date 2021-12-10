@@ -2,10 +2,10 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:red_egresados/domain/controller/controlchat.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/domain/models/message_model.dart';
-import 'package:red_egresados/ui/pages/chat/widget/wmensajes.dart';
+import 'package:red_peetoze/domain/controller/controlchat.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/models/message_model.dart';
+import 'package:red_peetoze/ui/pages/chat/widget/wmensajes.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key}) : super(key: key);

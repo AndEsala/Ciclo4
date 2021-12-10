@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:red_egresados/domain/controller/controlchat.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/data/controllerrealtime.dart';
-import 'package:red_egresados/ui/app.dart';
+import 'package:red_peetoze/domain/controller/controlchat.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/data/controllerrealtime.dart';
+import 'package:red_peetoze/domain/controller/firestore.dart';
+import 'package:red_peetoze/ui/app.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -12,5 +13,6 @@ void main() async {
   Get.put(Controllerauth());
   Get.put(ControllerRealtime());
   Get.put(Controlchat());
+  Get.put(ControllerFirestore());
   runApp(const App());
 }

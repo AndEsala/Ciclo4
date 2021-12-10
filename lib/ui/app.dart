@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:red_egresados/ui/pages/authentication/auth_page.dart';
-import 'package:red_egresados/ui/pages/chat/chat.dart';
+import 'package:red_peetoze/ui/pages/authentication/auth_page.dart';
+import 'package:red_peetoze/ui/pages/chat/chat.dart';
 
 /* import 'package:red_egresados/ui/pages/chat/chat_screen.dart';
 import 'package:red_egresados/ui/pages/chat/home_chat_screen.dart'; */
-import 'package:red_egresados/ui/pages/content/content_page.dart';
-import 'package:red_egresados/ui/theme/theme.dart';
+import 'package:red_peetoze/ui/pages/content/content_page.dart';
+import 'package:red_peetoze/ui/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);

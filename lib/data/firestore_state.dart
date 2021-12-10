@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:red_egresados/domain/repositories/database.dart';
+import 'package:red_peetoze/domain/repositories/database.dart';
 
 class FirestoreDatabase extends DatabaseInterface {
   // We get the Firestore instance

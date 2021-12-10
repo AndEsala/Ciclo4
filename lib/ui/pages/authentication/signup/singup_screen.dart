@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {

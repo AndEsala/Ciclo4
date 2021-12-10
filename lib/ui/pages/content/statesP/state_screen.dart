@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:red_egresados/domain/controller/control_state.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/domain/models/user_states.dart';
-import 'package:red_egresados/ui/pages/content/statesP/widgets/new_state.dart';
+import 'package:red_peetoze/domain/controller/control_state.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/models/user_states.dart';
+import 'package:red_peetoze/ui/pages/content/statesP/widgets/new_state.dart';
 
 import 'widgets/state_card.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:red_egresados/domain/controller/controlchat.dart';
-import 'package:red_egresados/domain/models/message_model.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/controller/controlchat.dart';
+import 'package:red_peetoze/domain/models/message_model.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
 
 class MessageWidget extends StatelessWidget {
   final String texto;

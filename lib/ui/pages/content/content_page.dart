@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/ui/pages/content/location/location_screen.dart';
-import 'package:red_egresados/ui/pages/content/post/postScreen.dart';
-import 'package:red_egresados/ui/pages/content/public_post/public_offers_screen.dart';
-import 'package:red_egresados/ui/pages/content/Activity/activ_screen.dart';
-import 'package:red_egresados/ui/pages/content/statesP/state_screen.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/ui/pages/content/location/location_screen.dart';
+
+import 'package:red_peetoze/ui/pages/content/post/post_screen.dart';
+import 'package:red_peetoze/ui/pages/content/public_post/public_offers_screen.dart';
+import 'package:red_peetoze/ui/pages/content/Activity/activ_screen.dart';
+import 'package:red_peetoze/ui/pages/content/statesP/state_screen.dart';
 
 import 'package:get/get.dart';
-import 'package:red_egresados/ui/widgets/appbar.dart';
+import 'package:red_peetoze/ui/widgets/appbar.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _State extends State<ContentPage> {
           _content = const PublicScreen();
           break;
         case 3:
-          _content = const PostScreen();
+          _content = ListaPost();
           break;
         case 4:
           _content = const LocationScreen();

@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:red_egresados/domain/controller/control_state.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/domain/models/user_states.dart';
+import 'package:red_peetoze/domain/controller/control_state.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/models/user_states.dart';
 // import 'package:red_egresados/domain/models/user_status.dart';
 // import 'package:red_egresados/domain/use_cases/controllers/authentication.dart';
 // import 'package:red_egresados/domain/use_cases/status_management.dart';

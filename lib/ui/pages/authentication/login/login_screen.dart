@@ -3,8 +3,8 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:red_egresados/domain/controller/controllerauth.dart';
-import 'package:red_egresados/ui/pages/content/content_page.dart';
+import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/ui/pages/content/content_page.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;

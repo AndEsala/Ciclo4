@@ -40,7 +40,7 @@ class Controllerauth extends GetxController {
       } else if (e.code == 'email-already-in-use') {
         print('Correo ya Existe');
 
-        return Future.error('The account already exists for that email.');
+        return Future.error('La cuenta ya exists para este email.');
       }
     } catch (e) {
       print(e);
