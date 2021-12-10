@@ -8,32 +8,32 @@ class ControllerFirestore extends GetxController {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Stream<QuerySnapshot> readItems() {
-    CollectionReference listado = _db.collection('Post');
+    CollectionReference listado = _db.collection('post');
 
     return listado.snapshots();
   }
 
-  Future<void> crearestado(Map<String, dynamic> Post, foto) async {
+  Future<void> crearestado(Map<String, dynamic> post, foto) async {
     var url = '';
     if (foto != null) url = await cargarfoto(foto, DateTime.now().toString());
     print(url);
-    Post['fotopost'] = url.toString();
+    post['fotopost'] = url.toString();
 
-    await _db.collection('Post').doc().set(Post).catchError((e) {
+    await _db.collection('post').doc().set(post).catchError((e) {
       print(e);
     });
     //return true;
   }
 
   Future<void> actualizarestado(String id, Map<String, dynamic> post) async {
-    await _db.collection('Post').doc(id).update(post).catchError((e) {
+    await _db.collection('post').doc(id).update(post).catchError((e) {
       print(e);
     });
     //return true;
   }
 
   Future<void> eliminarestados(String id) async {
-    await _db.collection('Post').doc(id).delete().catchError((e) {
+    await _db.collection('post').doc(id).delete().catchError((e) {
       print(e);
     });
     //return true;
@@ -41,7 +41,7 @@ class ControllerFirestore extends GetxController {
 
   Future<dynamic> cargarfoto(var foto, var idfoto) async {
     final fs.Reference storageReference =
-        fs.FirebaseStorage.instance.ref().child("Post");
+        fs.FirebaseStorage.instance.ref().child("post");
 
     fs.TaskSnapshot taskSnapshot =
         await storageReference.child(idfoto).putFile(foto);

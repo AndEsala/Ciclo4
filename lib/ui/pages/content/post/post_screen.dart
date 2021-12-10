@@ -57,7 +57,7 @@ Widget getInfo(BuildContext context, Stream<QuerySnapshot> ct, String uid) {
           if (snapshot.hasError) return Text('Error: ${snapshot.error}');
           // print(snapshot.data);
           return snapshot.data != null
-              ? VistaEstados(estados: snapshot.data!.docs, uid: uid)
+              ? VistaEstados(post: snapshot.data!.docs, uid: uid)
               : Text('Sin Datos');
 
         /*
@@ -74,16 +74,16 @@ Widget getInfo(BuildContext context, Stream<QuerySnapshot> ct, String uid) {
 }
 
 class VistaEstados extends StatelessWidget {
-  final List estados;
+  final List post;
   final String uid;
-  const VistaEstados({required this.estados, required this.uid});
+  const VistaEstados({required this.post, required this.uid});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: estados.length == 0 ? 0 : estados.length,
+        itemCount: post.length == 0 ? 0 : post.length,
         itemBuilder: (context, posicion) {
-          print(estados[posicion].id);
+          print(post[posicion].id);
           return Card(
             elevation: 2,
             child: Container(
@@ -95,26 +95,25 @@ class VistaEstados extends StatelessWidget {
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(estados[posicion]['photo']),
+                        backgroundImage: NetworkImage(post[posicion]['photo']),
                       ),
                       const SizedBox(
                         width: 14.0,
                       ),
                       Expanded(
                         child: Text(
-                          estados[posicion]['titulo'],
+                          post[posicion]['titulo'],
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
-                      (uid == estados[posicion]['uid'])
+                      (uid == post[posicion]['uid'])
                           ? IconButton(
                               onPressed: () {
                                 Get.to(() => ModificarPost(
-                                      estado: estados,
+                                      post: post,
                                       pos: posicion,
-                                      iddoc: estados[posicion].id,
+                                      iddoc: post[posicion].id,
                                     ));
                               },
                               icon: Icon(Icons.edit))
@@ -126,17 +125,17 @@ class VistaEstados extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(estados[posicion]['detalle']),
+                    child: Text(post[posicion]['detalle']),
                   ),
                   const SizedBox(
                     height: 6.0,
                   ),
                   Container(
-                    child: Image.network(estados[posicion]['fotoestado']),
+                    child: Image.network(post[posicion]['fotopost']),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
-                    child: Text(estados[posicion]['name']),
+                    child: Text(post[posicion]['name']),
                   ),
                 ],
               ),

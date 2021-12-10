@@ -97,16 +97,16 @@ class _AgregarPostState extends State<AgregarPost> {
               ElevatedButton(
                 child: Text("Adicionar Post"),
                 onPressed: () {
-                  var estados = <String, dynamic>{
+                  var post = <String, dynamic>{
                     'titulo': controltitulo.text,
                     'detalle': controldetalle.text,
                     'photo': controluser.photorul,
                     'name': controluser.name,
                     'uid': controluser.uid,
-                    'fotoestado': ''
+                    'fotopost': ''
                   };
 
-                  controlestados.crearestado(estados, _image);
+                  controlestados.crearestado(post, _image);
                   Get.back();
                 },
               ),

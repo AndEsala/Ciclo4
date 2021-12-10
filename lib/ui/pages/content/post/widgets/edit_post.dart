@@ -6,8 +6,8 @@ import 'package:red_peetoze/domain/controller/firestore.dart';
 class ModificarPost extends StatefulWidget {
   final iddoc;
   final pos;
-  final List estado;
-  ModificarPost({required this.estado, this.pos, this.iddoc});
+  final List post;
+  ModificarPost({required this.post, this.pos, this.iddoc});
 
   @override
   _ModificarPostState createState() => _ModificarPostState();
@@ -21,9 +21,9 @@ class _ModificarPostState extends State<ModificarPost> {
   @override
   void initState() {
     controltitulo =
-        TextEditingController(text: widget.estado[widget.pos]['titulo']);
+        TextEditingController(text: widget.post[widget.pos]['titulo']);
     controldetalle =
-        TextEditingController(text: widget.estado[widget.pos]['detalle']);
+        TextEditingController(text: widget.post[widget.pos]['detalle']);
 
     // TODO: implement initState
     super.initState();
@@ -40,7 +40,7 @@ class _ModificarPostState extends State<ModificarPost> {
               tooltip: 'Eliminar Cliente',
               icon: Icon(Icons.delete),
               onPressed: () {
-                controlestados.eliminarestados(widget.estado[widget.pos].id);
+                controlestados.eliminarestados(widget.post[widget.pos].id);
                 Get.back();
               })
         ],
@@ -73,7 +73,7 @@ class _ModificarPostState extends State<ModificarPost> {
                   };
 
                   controlestados.actualizarestado(
-                      widget.estado[widget.pos].id, estado);
+                      widget.post[widget.pos].id, estado);
 
                   Get.back();
                 },
