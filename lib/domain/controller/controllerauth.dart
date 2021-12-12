@@ -9,6 +9,28 @@ class Controllerauth extends GetxController {
   late Rx<dynamic> _uid = "".obs;
   late Rx<dynamic> _name = "Anonimo".obs;
   late Rx<dynamic> _photo = "".obs;
+  final _authenticated = false.obs;
+  final _currentUser = Rx<User?>(null);
+  late Controllerauth _manager;
+
+  set currentUser(User? userAuth) {
+    _currentUser.value = userAuth;
+    _authenticated.value = userAuth != null;
+  }
+
+  set authManagement(Controllerauth manager) {
+    _manager = manager;
+  }
+
+  // Reactive Getters
+  RxBool get reactiveAuth => _authenticated;
+  Rx<User?> get reactiveUser => _currentUser;
+
+  // Getters
+  bool get authenticated => _authenticated.value;
+  User? get currentUser => _currentUser.value;
+
+  Controllerauth get manager => _manager;
 
   String get userf => _usuarior.value;
   String get photorul => _photo.value;

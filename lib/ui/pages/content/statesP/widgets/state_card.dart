@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:red_peetoze/domain/controller/control_state.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/models/user_states.dart';
 
 import 'package:red_peetoze/ui/widgets/card.dart';
 
@@ -8,6 +10,7 @@ class StateCard extends StatelessWidget {
   final String title, content, picUrl;
   final VoidCallback onDelete;
   final String uid;
+  final IconButton icon;
 
   // StateCard constructor
   const StateCard(
@@ -15,6 +18,7 @@ class StateCard extends StatelessWidget {
       required this.title,
       required this.content,
       required this.picUrl,
+      required this.icon,
       required this.uid,
       required this.onDelete})
       : super(key: key);
@@ -24,6 +28,7 @@ class StateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Controllerauth controluser = Get.find();
+
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
       key: const Key("statusCard"),
@@ -46,13 +51,14 @@ class StateCard extends StatelessWidget {
         ),
       ),
       // topRightWidget widget as an IconButton
-      topRightWidget: IconButton(
-        icon: Icon(
-          Icons.close,
-          color: primaryColor,
-        ),
-        onPressed: onDelete,
-      ),
+      topRightWidget: icon,
+      // IconButton(
+      //   icon: Icon(
+      //     Icons.close,
+      //     color: primaryColor,
+      //   ),
+      //   onPressed: onDelete,
+      // ),
     );
   }
 }

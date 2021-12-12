@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
 class ControllerRealtime extends GetxController {
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.ref();
 
   void createData(String mensaje, String uid) {
     databaseReference

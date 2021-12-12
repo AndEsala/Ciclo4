@@ -20,6 +20,7 @@ class StatesScreen extends StatefulWidget {
 class _State extends State<StatesScreen> {
   late final StatusManager manager;
   late Stream<QuerySnapshot<Map<String, dynamic>>> statusesStream;
+  late bool _isButtonDisabled;
   // late ConnectivityController controller;
 
   @override
@@ -27,12 +28,14 @@ class _State extends State<StatesScreen> {
     super.initState();
     manager = StatusManager();
     statusesStream = manager.getStatusesStream();
+    _isButtonDisabled = false;
     // controller = Get.find<ConnectivityController>();
   }
 
   @override
   Widget build(BuildContext context) {
     Controllerauth controluser = Get.find();
+
     return Scaffold(
       body: Column(
         children: [
@@ -64,16 +67,38 @@ class _State extends State<StatesScreen> {
                     itemBuilder: (context, index) {
                       UserStatus status = items[index];
                       return StateCard(
-                        title: status.name,
-                        uid: controluser.uid,
-                        content: status.message,
-                        picUrl: status.picUrl,
-                        onDelete: () {
-                          if (controluser.uid == controluser.uid) {
-                            manager.removeStatus(status);
-                          }
-                        },
-                      );
+                          title: status.name,
+                          uid: controluser.uid,
+                          content: status.message,
+                          picUrl: status.picUrl,
+                          onDelete: () {
+                            print("por aqui paso");
+                          },
+                          icon: IconButton(
+                            onPressed: () {
+                              if (status.uid == controluser.uid) {
+                                _isButtonDisabled = true;
+                                print("es el mismo uid: " + status.uid);
+                                manager.removeStatus(status);
+                              } else {
+                                _isButtonDisabled = true;
+                                print("no es el mismo uid" +
+                                    controluser.uid +
+                                    " - " +
+                                    status.uid);
+                              }
+                            },
+                            icon: status.uid == controluser.uid
+                                ? Icon(
+                                    Icons.close,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.brightness_1_rounded,
+                                    color: Colors.black,
+                                    size: 10.0,
+                                  ),
+                          ));
                     },
                   );
                 } else if (snapshot.hasError) {

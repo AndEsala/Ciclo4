@@ -41,7 +41,7 @@ class _State extends State<ContentPage> {
           _content = ListaPost();
           break;
         case 4:
-          _content = const LocationScreen();
+          _content = LocationScreen();
           break;
         default:
           _content = const ActivScreen();
