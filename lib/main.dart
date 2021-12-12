@@ -30,9 +30,6 @@ void main() async {
   Get.put(Controlchat());
   Get.put(ControllerFirestore());
   Get.put(PermissionsController());
-  // Get.put(NotificationController());
-  // Get.put(UIController());
-  // Get.put(LocationController());
   runApp(const App());
 }
 
