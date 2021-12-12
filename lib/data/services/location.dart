@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:red_peetoze/domain/models/location_model.dart';
 import 'package:red_peetoze/domain/services/misiontic.dart';
 
 class LocationService implements MisionTicService {
   final String baseUrl = 'misiontic-2022-uninorte.herokuapp.com';
-  final String apiKey = 'wNLombyTzPIjLjkfp/aohu5b0Xy.iOM.4Sj4Q3.s9Ri9riyE6y5E2';
+  final String apiKey = 'HABv4i1HNLW.nM7TlSVHR.Y8C5jnCLQcJ6jq4djcuBvUFKfGODDp2';
 
   @override
   Future<List<UserLocation>> fecthData({int limit = 5, Map? map}) async {
