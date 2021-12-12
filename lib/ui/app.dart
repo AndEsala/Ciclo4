@@ -1,23 +1,6 @@
-import 'dart:developer';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:red_egresados/data/repositories/password_auth.dart';
-// import 'package:red_egresados/domain/repositorires/auth.dart';
-// import 'package:red_egresados/domain/use_cases/auth_management.dart';
-// import 'package:red_egresados/domain/use_cases/controllers/authentication.dart';
-// import 'package:red_egresados/domain/use_cases/controllers/connectivity.dart';
-// import 'package:red_egresados/domain/use_cases/controllers/location.dart';
-// import 'package:red_egresados/domain/use_cases/controllers/notification.dart';
-// import 'package:red_egresados/domain/use_cases/controllers/permissions.dart';
-// import 'package:red_egresados/domain/use_cases/controllers/ui.dart';
-// import 'package:red_egresados/domain/use_cases/permission_management.dart';
-// import 'package:red_egresados/domain/use_cases/theme_management.dart';
-// import 'package:red_egresados/ui/pages/authentication/auth_page.dart';
-// import 'package:red_egresados/ui/pages/content/content_page.dart';
-// import 'package:red_egresados/ui/theme/theme.dart';
 import 'package:red_peetoze/domain/controller/control_location.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/notification.dart';
