@@ -37,14 +37,6 @@ class _State extends State<LoginScreen> {
           icon: Icon(Icons.person, color: Colors.red),
           snackPosition: SnackPosition.BOTTOM);
     }
-
-    //   Get.snackbar(
-    //     "Login",
-    //     err.toString(),
-    //     icon: Icon(Icons.person, color: Colors.red),
-    //     snackPosition: SnackPosition.BOTTOM,
-    //   );
-    // }
   }
 
   _google() async {
