@@ -59,8 +59,8 @@ class _State extends State<ContentPage> {
           tile: const Text("Peetoze"),
           iconPets: Icon(Icons.pets),
           context: context,
-          onSignOff: () {
-            controluser.logOut();
+          onSignOff: () async {
+            await controluser.logOut();
             Get.offNamed('/auth');
           }),
       body: SafeArea(

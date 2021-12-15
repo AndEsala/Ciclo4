@@ -28,7 +28,7 @@ class LocationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _uid = authController.uid;
     final _name = authController.name;
-    _init(_uid, _name);
+    // _init(_uid, _name);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,7 +44,7 @@ class LocationScreen extends StatelessWidget {
                     onUpdate: () {
                       if (permissionsController.locationGranted) {
                         //&&     connectivityController.connected) {
-                        _updatePosition(_uid, _name);
+                        // _updatePosition(_uid, _name);
                       }
                     },
                   )
@@ -102,34 +102,34 @@ class LocationScreen extends StatelessWidget {
     );
   }
 
-  _init(String uid, String name) {
-    if (!permissionsController.locationGranted) {
-      permissionsController.manager.requestGpsPermission().then((granted) {
-        if (granted) {
-          locationController.locationManager = LocationManager();
-          _updatePosition(uid, name);
-        } else {
-          uiController.screenIndex = 0;
-        }
-      });
-    } else {
-      locationController.locationManager = LocationManager();
-      _updatePosition(uid, name);
-    }
-    notificationController.createChannel(
-        id: 'users-location',
-        name: 'Users Location',
-        description: 'Other users location...');
-  }
+  // _init(String uid, String name) {
+  //   if (!permissionsController.locationGranted) {
+  //     permissionsController.manager.requestGpsPermission().then((granted) {
+  //       if (granted) {
+  //         locationController.locationManager = LocationManager();
+  //         _updatePosition(uid, name);
+  //       } else {
+  //         uiController.screenIndex = 0;
+  //       }
+  //     });
+  //   } else {
+  //     locationController.locationManager = LocationManager();
+  //     _updatePosition(uid, name);
+  //   }
+  //   notificationController.createChannel(
+  //       id: 'users-location',
+  //       name: 'Users Location',
+  //       description: 'Other users location...');
+  // }
 
-  _updatePosition(String uid, String name) async {
-    final position = await locationController.manager.getCurrentLocation();
-    await locationController.manager.storeUserDetails(uid: uid, name: name);
-    locationController.location = MyLocation(
-        name: name, id: uid, lat: position.latitude, long: position.longitude);
-    Workmanager().registerPeriodicTask(
-      "1",
-      "locationPeriodicTask",
-    );
-  }
+  // _updatePosition(String uid, String name) async {
+  //   final position = await locationController.manager.getCurrentLocation();
+  //   await locationController.manager.storeUserDetails(uid: uid, name: name);
+  //   locationController.location = MyLocation(
+  //       name: name, id: uid, lat: position.latitude, long: position.longitude);
+  //   Workmanager().registerPeriodicTask(
+  //     "1",
+  //     "locationPeriodicTask",
+  //   );
+  // }
 }

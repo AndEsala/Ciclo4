@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/ui/pages/content/content_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;
@@ -18,10 +19,31 @@ class LoginScreen extends StatefulWidget {
 class _State extends State<LoginScreen> {
   TextEditingController usuario = TextEditingController();
   TextEditingController passwd = TextEditingController();
-  var _formkey = GlobalKey<FormState>();
+
   Controllerauth controluser = Get.find();
 
-  bool _validate = false;
+  @override
+  void initState() {
+    autoLogIn();
+    // connectivityController = Get.find<ConnectivityController>();
+    super.initState();
+  }
+
+  void autoLogIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('email');
+    final String? passw = prefs.getString('pass');
+
+    if (email != null) {
+      setState(() {
+        usuario.text = email;
+        passwd.text = passw!;
+        if (controluser.userf != 'Ingrese sus datos')
+          _inicio(usuario.text, passwd.text);
+      });
+      return;
+    }
+  }
 
   _inicio(theEmail, thePassword) async {
     print('_login $theEmail $thePassword');
@@ -30,6 +52,11 @@ class _State extends State<LoginScreen> {
       if (controluser.userf != 'Ingrese sus datos' || controluser.userf == '') {
         Future.delayed(Duration(seconds: 2));
         Get.offNamed('/content');
+      } else {
+        Future.delayed(Duration(seconds: 2));
+        Get.snackbar('Error', 'Los campos no pueden estar vacios',
+            icon: Icon(Icons.error, color: Colors.red),
+            snackPosition: SnackPosition.BOTTOM);
       }
     } catch (err) {
       print(err.toString());
@@ -43,7 +70,7 @@ class _State extends State<LoginScreen> {
     try {
       await controluser.ingresarGoogle();
       if (controluser.userf != 'Ingrese sus datos' ||
-          controluser.userf.isEmpty) {
+          controluser.userf != null) {
         Future.delayed(Duration(seconds: 2));
         Get.to(() => ContentPage());
       }
@@ -65,7 +92,7 @@ class _State extends State<LoginScreen> {
           init: Controllerauth(),
           builder: (_) {
             return Form(
-              key: _formkey,
+              // key: _formkey,
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -160,10 +187,10 @@ class _State extends State<LoginScreen> {
         ));
   }
 
-//   @override
-//   void dispose() {
-//     email.dispose();
-//     password.dispose();
-//     super.dispose();
-//   }
+  @override
+  void dispose() {
+    usuario.dispose();
+    passwd.dispose();
+    super.dispose();
+  }
 }

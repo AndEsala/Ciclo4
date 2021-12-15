@@ -21,7 +21,7 @@ class _State extends State<SignUpScreen> {
   Controllerauth controluser = Get.find();
 
   _register(theEmail, thePassword) async {
-    print('_login $theEmail $thePassword');
+    print('_register $theEmail $thePassword');
     try {
       await controluser.registrarEmail(theEmail, thePassword);
       if (controluser.userf != 'Ingrese sus datos') {
@@ -93,8 +93,32 @@ class _State extends State<SignUpScreen> {
                   padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      _register(usuario.text, passwd.text);
-                      Get.offNamed('/content');
+                      if (usuario.text.isEmpty) {
+                        Get.snackbar(
+                          "Error",
+                          "El campo de Correo no puede estar vacio.!",
+                          icon: Icon(Icons.error, color: Colors.red),
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else if (passwd.text.isEmpty) {
+                        Get.snackbar(
+                          "Error",
+                          "El campo de la Clave no puede estar vacio.!",
+                          icon: Icon(Icons.error, color: Colors.red),
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else if (_validateEmail(usuario.text) == true) {
+                        _register(usuario.text, passwd.text);
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          "Ingrese un Correo valido",
+                          icon: Icon(Icons.error, color: Colors.red),
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      }
+
+                      // {Get.offNamed('/content');}
                     },
                     child: const Text("Registrar"),
                   ),
@@ -118,5 +142,12 @@ class _State extends State<SignUpScreen> {
     usuario.dispose();
     passwd.dispose();
     super.dispose();
+  }
+
+  bool _validateEmail(String value) {
+    RegExp regex = new RegExp(
+        r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+
+    return (!regex.hasMatch(value)) ? false : true;
   }
 }
