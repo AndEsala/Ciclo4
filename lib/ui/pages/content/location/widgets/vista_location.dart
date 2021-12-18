@@ -52,8 +52,6 @@ class VistaLocations extends StatelessWidget {
     //   return dist.toStringAsFixed(2);
     // }
 
-    //**********************************//
-
     for (int i = 0; i < locations.length; i++) {
       if (uid != locations[i]['uid']) {
         String distancia = distance(
@@ -69,9 +67,7 @@ class VistaLocations extends StatelessWidget {
           'lo': locations[i]['lo'],
           'Dist': distancia
         };
-        // if (double.parse(distancia) > 200)
         listacalculo.add(calc);
-        print(listacalculo);
       }
     }
 
@@ -80,15 +76,16 @@ class VistaLocations extends StatelessWidget {
       itemBuilder: (context, posicion) {
         //print(listacalculo[posicion].id);
         double dis = double.parse(listacalculo[posicion]['Dist']);
+
         return LocationCard(
           title: listacalculo[posicion]['name'],
           lat: listacalculo[posicion]['lat'],
           long: listacalculo[posicion]['lo'],
-          distance: dis,
+          distance: dis.toStringAsFixed(4),
         );
       },
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
     ); // });
   }
 }

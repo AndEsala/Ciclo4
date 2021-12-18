@@ -16,6 +16,7 @@ import 'package:red_peetoze/domain/use_cases/controllers/permissions.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/ui.dart';
 import 'package:red_peetoze/ui/app.dart';
 import 'package:get/get.dart';
+import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
@@ -32,6 +33,9 @@ void main() async {
   Get.put(ControllerFirestore());
   Get.put(PermissionsController());
   Get.put(Controllerlocations());
+
+  Get.put(LocationController());
+
   runApp(const App());
 }
 

@@ -15,6 +15,7 @@ import 'package:red_peetoze/domain/use_cases/theme_management.dart';
 import 'package:red_peetoze/ui/pages/authentication/auth_page.dart';
 import 'package:red_peetoze/ui/pages/chat/chat.dart';
 import 'package:red_peetoze/ui/pages/content/content_page.dart';
+import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
 import 'package:red_peetoze/ui/theme/theme.dart';
 
 class App extends StatefulWidget {
@@ -113,7 +114,6 @@ class _AppState extends State<App> {
       connectivityController.connectivity = connectivityStatus;
     });
 
-    Get.put(LocationController());
     // Notification controller
     NotificationController notificationController =
         Get.put(NotificationController());

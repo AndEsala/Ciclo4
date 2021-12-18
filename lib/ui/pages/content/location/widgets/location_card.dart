@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 class LocationCard extends StatelessWidget {
   final String title;
   final String lat, long;
-  final double? distance;
+  final String? distance;
   final VoidCallback? onUpdate;
 
   // PostCard constructor
@@ -38,10 +38,8 @@ class LocationCard extends StatelessWidget {
           color: primaryColor,
         ),
         onPressed: () async {
-          if (onUpdate != null) {
-            final url = "https://www.google.es/maps?q=$lat,$long";
-            await launch(url);
-          }
+          final url = "https://www.google.es/maps?q=$lat,$long";
+          await launch(url);
         },
       ),
       // topRightWidget widget as an IconButton or null
@@ -90,17 +88,17 @@ class LocationCard extends StatelessWidget {
               if (lat != 0)
                 Text(
                   '$lat',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               if (long != 0)
                 Text(
                   '$long',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               if (distance != null)
                 Text(
                   '$distance Km',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
             ],
           ))
