@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 import 'package:red_peetoze/ui/pages/content/content_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _State extends State<LoginScreen> {
   TextEditingController usuario = TextEditingController();
   TextEditingController passwd = TextEditingController();
+  final connectivityController = Get.find<ConnectivityController>();
 
   Controllerauth controluser = Get.find();
 
@@ -87,104 +89,142 @@ class _State extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GetBuilder<Controllerauth>(
-          init: Controllerauth(),
-          builder: (_) {
-            return Form(
-              // key: _formkey,
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Iniciar sesión",
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: usuario,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Email'),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: passwd,
-                            obscureText: true,
-                            obscuringCharacter: "*",
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Contraseña'),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5.0, vertical: 30.0),
-                                  child: SignInButton(
-                                    Buttons.Email,
-                                    text: "Iniciar con Email",
-                                    shape: const StadiumBorder(),
-                                    mini: false,
-                                    onPressed: () async {
-                                      _inicio(usuario.text, passwd.text);
-                                    },
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15.0, horizontal: 30.0),
-                                  ),
-                                ),
-                              ),
-                            ]),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Obx(() => Text(controluser.userf)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextButton(
-                          onPressed: widget.onViewSwitch,
-                          child: const Text("Registrarse"),
-                        ),
-                        const Spacer(),
-                      ])),
-            );
-          },
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 90,
+            ),
+            Center(
+                child: Image.asset(
+              'assets/images/login.png',
+              scale: 2.5,
+              fit: BoxFit.scaleDown,
+            )),
+            // const
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Iniciar sesión",
+                style: Theme.of(context).textTheme.headline1,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                // key: const Key("signInEmail"),
+
+                controller: usuario,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Correo electrónico',
+                ),
+                autofocus: true,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                // key: const Key("signInPassword"),
+                controller: passwd,
+                obscureText: true,
+                obscuringCharacter: "*",
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Contraseña',
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9.0),
+                      ))),
+                      icon: Icon(Icons.email),
+                      label: const Text(
+                        "Iniciar Sesion",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () async {
+                        if (connectivityController.connected) {
+                          await _inicio(usuario.text, passwd.text);
+                        } else {
+                          Get.showSnackbar(
+                            GetSnackBar(
+                              message: "No estas conectado a la red.",
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Obx(() => Text(controluser.userf)),
+
+            ElevatedButton.icon(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(9.0),
+              ))),
+              onPressed: () async {
+                if (connectivityController.connected) {
+                  await _google();
+                } else {
+                  Get.showSnackbar(
+                    GetSnackBar(
+                      message: "No estas conectado a la red.",
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
+                }
+              },
+              icon: FaIcon(
+                FontAwesomeIcons.google,
+                color: Colors.white,
+              ),
+              label: const Text(
+                "Iniciar con Google",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 110,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("No tienes Cuenta?"),
+                TextButton(
+                  // key: const Key("toSignUpButton"),
+                  child: const Text(
+                    " Crear Cuenta",
+                  ),
+                  onPressed: widget.onViewSwitch,
+                ),
+              ],
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _google();
-          },
-          child: FaIcon(
-            FontAwesomeIcons.google,
-            color: Colors.white,
-          ),
-        ));
+      ),
+    );
   }
 
   @override

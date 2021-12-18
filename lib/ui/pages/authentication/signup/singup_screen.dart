@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:get/get.dart';
+import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 
 class SignUpScreen extends StatefulWidget {
   final VoidCallback onViewSwitch;
@@ -19,6 +20,7 @@ class _State extends State<SignUpScreen> {
   TextEditingController usuario = TextEditingController();
   TextEditingController passwd = TextEditingController();
   Controllerauth controluser = Get.find();
+  final connectivityController = Get.find<ConnectivityController>();
 
   _register(theEmail, thePassword) async {
     print('_register $theEmail $thePassword');
@@ -49,7 +51,7 @@ class _State extends State<SignUpScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Creación de usuario",
+              "Crear Cuenta",
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
@@ -81,7 +83,7 @@ class _State extends State<SignUpScreen> {
               obscuringCharacter: "*",
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Clave',
+                labelText: 'Contraseña',
               ),
             ),
           ),
@@ -92,43 +94,67 @@ class _State extends State<SignUpScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: ElevatedButton(
+                    style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(9.0),
+                    ))),
                     onPressed: () {
-                      if (usuario.text.isEmpty) {
-                        Get.snackbar(
-                          "Error",
-                          "El campo de Correo no puede estar vacio.!",
-                          icon: Icon(Icons.error, color: Colors.red),
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                      } else if (passwd.text.isEmpty) {
-                        Get.snackbar(
-                          "Error",
-                          "El campo de la Clave no puede estar vacio.!",
-                          icon: Icon(Icons.error, color: Colors.red),
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                      } else if (_validateEmail(usuario.text) == true) {
-                        _register(usuario.text, passwd.text);
+                      if (connectivityController.connected) {
+                        if (usuario.text.isEmpty) {
+                          Get.snackbar(
+                            "Error",
+                            "El campo de Correo no puede estar vacio.!",
+                            icon: Icon(Icons.error, color: Colors.red),
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        } else if (passwd.text.isEmpty) {
+                          Get.snackbar(
+                            "Error",
+                            "El campo de la Clave no puede estar vacio.!",
+                            icon: Icon(Icons.error, color: Colors.red),
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        } else if (_validateEmail(usuario.text) == true) {
+                          _register(usuario.text, passwd.text);
+                        } else {
+                          Get.snackbar(
+                            "Error",
+                            "Ingrese un Correo valido",
+                            icon: Icon(Icons.error, color: Colors.red),
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
                       } else {
-                        Get.snackbar(
-                          "Error",
-                          "Ingrese un Correo valido",
-                          icon: Icon(Icons.error, color: Colors.red),
-                          snackPosition: SnackPosition.BOTTOM,
+                        Get.showSnackbar(
+                          GetSnackBar(
+                            message: "No estas conectado a la red.",
+                            duration: const Duration(seconds: 2),
+                          ),
                         );
                       }
-
-                      // {Get.offNamed('/content');}
                     },
-                    child: const Text("Registrar"),
+                    child: const Text(
+                      "Crear Cuenta",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          TextButton(
-            onPressed: widget.onViewSwitch,
-            child: const Text("Entrar"),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Ya tienes cuenta ?"),
+              TextButton(
+                onPressed: widget.onViewSwitch,
+                child: const Text("Iniciar Sesion"),
+              ),
+            ],
           ),
           const Spacer(),
         ],

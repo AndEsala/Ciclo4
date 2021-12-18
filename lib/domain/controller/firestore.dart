@@ -13,6 +13,12 @@ class ControllerFirestore extends GetxController {
     return listado.snapshots();
   }
 
+  Stream<QuerySnapshot> readLocations() {
+    CollectionReference listado = _db.collection('ubicacion');
+
+    return listado.snapshots();
+  }
+
   Future<void> crearestado(Map<String, dynamic> post, foto) async {
     var url = '';
     if (foto != null) url = await cargarfoto(foto, DateTime.now().toString());
@@ -34,6 +40,13 @@ class ControllerFirestore extends GetxController {
 
   Future<void> eliminarestados(String id) async {
     await _db.collection('post').doc(id).delete().catchError((e) {
+      print(e);
+    });
+    //return true;
+  }
+
+  Future<void> guardarubicacion(Map<String, dynamic> ubicacion, uid) async {
+    await _db.collection('ubicacion').doc(uid).set(ubicacion).catchError((e) {
       print(e);
     });
     //return true;

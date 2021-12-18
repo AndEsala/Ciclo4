@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:red_peetoze/ui/widgets/card.dart';
@@ -5,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class LocationCard extends StatelessWidget {
   final String title;
-  final double lat, long;
+  final String lat, long;
   final double? distance;
   final VoidCallback? onUpdate;
 
@@ -13,8 +15,8 @@ class LocationCard extends StatelessWidget {
   const LocationCard(
       {Key? key,
       required this.title,
-      this.lat = 0,
-      this.long = 0,
+      required this.lat,
+      required this.long,
       this.distance,
       this.onUpdate})
       : super(key: key);
