@@ -7,8 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class LocationCard extends StatelessWidget {
   final String title;
-  final String lat, long;
-  final String? distance;
+  final double lat, long;
+  final double? distance;
   final VoidCallback? onUpdate;
 
   // PostCard constructor
