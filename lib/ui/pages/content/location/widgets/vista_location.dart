@@ -61,7 +61,7 @@ class VistaLocations extends StatelessWidget {
           title: listacalculo[posicion]['name'],
           lat: listacalculo[posicion]['lat'],
           long: listacalculo[posicion]['lo'],
-          distance: dis,
+          distance: dis.toStringAsFixed(4),
         );
       },
       shrinkWrap: true,
