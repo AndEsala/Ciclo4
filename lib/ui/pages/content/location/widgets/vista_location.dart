@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:red_peetoze/domain/controller/locations.dart';
 import 'package:red_peetoze/ui/pages/content/location/widgets/location_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,6 +20,7 @@ class VistaLocations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> listacalculo = [];
+    Controllerlocations controlubicacion = Get.find();
 
 //*********Calculo de Distancias***********//
 
@@ -27,30 +30,6 @@ class VistaLocations extends StatelessWidget {
           Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
       return (distanceInMeters / 1000).toString();
     }
-
-    // double deg2rad(double deg) {
-    //   return (deg * pi / 180.0);
-    // }
-
-    // double rad2deg(double rad) {
-    //   return (rad * 180.0 / pi);
-    // }
-
-    // String distance(
-    //     double lat1, double lon1, double lat2, double lon2, String unit) {
-    //   double theta = lon1 - lon2;
-    //   double dist = sin(deg2rad(lat1)) * sin(deg2rad(lat2)) +
-    //       cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * cos(deg2rad(theta));
-    //   dist = acos(dist);
-    //   dist = rad2deg(dist);
-    //   dist = dist * 60 * 1.1515;
-    //   if (unit == 'K') {
-    //     dist = dist * 1.609344;
-    //   } else if (unit == 'N') {
-    //     dist = dist * 0.8684;
-    //   }
-    //   return dist.toStringAsFixed(2);
-    // }
 
     for (int i = 0; i < locations.length; i++) {
       if (uid != locations[i]['uid']) {
@@ -70,6 +49,7 @@ class VistaLocations extends StatelessWidget {
         listacalculo.add(calc);
       }
     }
+    controlubicacion.cercanos = listacalculo.length.toString();
 
     return ListView.builder(
       itemCount: listacalculo.length == 0 ? 0 : listacalculo.length,

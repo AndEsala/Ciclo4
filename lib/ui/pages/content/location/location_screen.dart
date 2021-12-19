@@ -12,6 +12,7 @@ import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/permissions.dart';
 import 'package:red_peetoze/ui/pages/content/location/widgets/location_card.dart';
 import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
+import 'package:workmanager/workmanager.dart';
 
 class LocationScreen extends StatefulWidget {
   @override
@@ -29,6 +30,10 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
+    Workmanager().registerPeriodicTask(
+      "1",
+      "ObtenerUbicacionesPeriodicas",
+    );
     controlubicacion.obtenerubicacion();
     _initNotificaciones();
   }
@@ -82,6 +87,12 @@ class _LocationScreenState extends State<LocationScreen> {
                               'name': controluser.name,
                               'uid': controluser.uid,
                             };
+                            controlguardarloc.guardarubicacion(
+                                ubicacion, controluser.uid);
+                            displayNotification(
+                                title: 'Cerca de Mi',
+                                body:
+                                    '${controlubicacion.cercanos}  Amigos cerca a  mi Ubicaion');
                           }
                         }),
                   ),
