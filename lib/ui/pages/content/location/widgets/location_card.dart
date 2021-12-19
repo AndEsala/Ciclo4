@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:red_peetoze/ui/widgets/card.dart';
@@ -13,8 +15,8 @@ class LocationCard extends StatelessWidget {
   const LocationCard(
       {Key? key,
       required this.title,
-      this.lat = 0,
-      this.long = 0,
+      required this.lat,
+      required this.long,
       this.distance,
       this.onUpdate})
       : super(key: key);
@@ -36,10 +38,8 @@ class LocationCard extends StatelessWidget {
           color: primaryColor,
         ),
         onPressed: () async {
-          if (onUpdate != null) {
-            final url = "https://www.google.es/maps?q=$lat,$long";
-            await launch(url);
-          }
+          final url = "https://www.google.es/maps?q=$lat,$long";
+          await launch(url);
         },
       ),
       // topRightWidget widget as an IconButton or null
@@ -88,17 +88,17 @@ class LocationCard extends StatelessWidget {
               if (lat != 0)
                 Text(
                   '$lat',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               if (long != 0)
                 Text(
                   '$long',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               if (distance != null)
                 Text(
                   '$distance Km',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
             ],
           ))

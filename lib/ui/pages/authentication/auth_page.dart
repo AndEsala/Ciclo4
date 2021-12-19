@@ -36,8 +36,7 @@ class _State extends State<AuthenticationPage> {
     _content = LoginScreen(onViewSwitch: () => _onItemTapped(2));
   }
 
-  // We create a Scaffold that is used for all the content pages
-  // We only define one AppBar, and one scaffold.
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

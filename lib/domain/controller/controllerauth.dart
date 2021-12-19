@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Controllerauth extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -37,10 +38,10 @@ class Controllerauth extends GetxController {
   String get uid => _uid.value;
   String get name => _name.value;
 
-  Future<void> registrarEmail(dynamic _email, dynamic _passw) async {
+  Future<void> registrarEmail(dynamic _email, dynamic _pass) async {
     try {
       UserCredential usuario = await auth.createUserWithEmailAndPassword(
-          email: _email, password: _passw);
+          email: _email, password: _pass);
 
       _usuarior.value = usuario.user!.email;
       _name.value = usuario.user!.email;
@@ -53,6 +54,7 @@ class Controllerauth extends GetxController {
           snackPosition: SnackPosition.TOP);
 
       print(usuario);
+      await guardarusuario(_usuarior.value, _pass);
 
       return Future.value(true);
       // return Future.value(true);
@@ -62,7 +64,7 @@ class Controllerauth extends GetxController {
       } else if (e.code == 'email-already-in-use') {
         print('Correo ya Existe');
 
-        return Future.error('La cuenta ya exists para este email.');
+        return Future.error('La cuenta ya existe para este email.');
       }
     } catch (e) {
       print(e);
@@ -85,6 +87,7 @@ class Controllerauth extends GetxController {
           snackPosition: SnackPosition.TOP);
       //    _photo.value = usuario.user!.photoURL;
       print(usuario);
+      await guardarusuario(_usuarior.value, pass);
       return Future.value(true);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -123,7 +126,7 @@ class Controllerauth extends GetxController {
       Get.snackbar('Bienvenido', 'Ingreso con su cuenta de Google',
           icon: Icon(Icons.person, color: Colors.blue),
           snackPosition: SnackPosition.TOP);
-
+      await guardarusuario('', '');
       return Future.value(true);
     } catch (e) {
       return Future.error('Error');
@@ -133,12 +136,22 @@ class Controllerauth extends GetxController {
   Future<void> logOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Get.snackbar('Exito', 'Finalizo sesion',
+      await guardarusuario('', '');
+      await Get.snackbar('Exito', 'Finalizo sesion',
           icon: Icon(Icons.person, color: Colors.red),
           snackPosition: SnackPosition.TOP);
+
       _usuarior.value = "Ingrese sus datos";
     } catch (e) {
       return Future.error(e.toString());
     }
+  }
+
+  Future<void> guardarusuario(datos, pass) async {
+    Future<SharedPreferences> _localuser = SharedPreferences.getInstance();
+    final SharedPreferences localuser = await _localuser;
+    localuser.setString('email', datos);
+    localuser.setString('pass', pass);
+    print(localuser.getString('usuario'));
   }
 }

@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:red_peetoze/domain/controller/control_location.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/notification.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/permissions.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/ui.dart';
@@ -11,6 +15,7 @@ import 'package:red_peetoze/domain/use_cases/theme_management.dart';
 import 'package:red_peetoze/ui/pages/authentication/auth_page.dart';
 import 'package:red_peetoze/ui/pages/chat/chat.dart';
 import 'package:red_peetoze/ui/pages/content/content_page.dart';
+import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
 import 'package:red_peetoze/ui/theme/theme.dart';
 
 class App extends StatefulWidget {
@@ -101,15 +106,14 @@ class _AppState extends State<App> {
       }
     });
     // Connectivity Controller
-    // ConnectivityController connectivityController =
-    //     Get.put(ConnectivityController());
-    // // Connectivity stream
-    // Connectivity().onConnectivityChanged.listen((connectivityStatus) {
-    //   log("connection changed");
-    //   connectivityController.connectivity = connectivityStatus;
-    // });
+    ConnectivityController connectivityController =
+        Get.put(ConnectivityController());
+    // Connectivity stream
+    Connectivity().onConnectivityChanged.listen((connectivityStatus) {
+      log("connection changed");
+      connectivityController.connectivity = connectivityStatus;
+    });
 
-    Get.put(LocationController());
     // Notification controller
     NotificationController notificationController =
         Get.put(NotificationController());

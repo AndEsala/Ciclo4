@@ -8,6 +8,7 @@ import 'package:red_peetoze/domain/controller/controlchat.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/data/controllerrealtime.dart';
 import 'package:red_peetoze/domain/controller/firestore.dart';
+import 'package:red_peetoze/domain/controller/locations.dart';
 import 'package:red_peetoze/domain/models/location_model.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/location_management.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/notification.dart';
@@ -15,12 +16,13 @@ import 'package:red_peetoze/domain/use_cases/controllers/permissions.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/ui.dart';
 import 'package:red_peetoze/ui/app.dart';
 import 'package:get/get.dart';
+import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // WidgetsFlutterBinding.ensureInitialized();
+
   Workmanager().initialize(
     updatePositionInBackground,
     isInDebugMode: true,
@@ -30,6 +32,10 @@ void main() async {
   Get.put(Controlchat());
   Get.put(ControllerFirestore());
   Get.put(PermissionsController());
+  Get.put(Controllerlocations());
+
+  Get.put(LocationController());
+
   runApp(const App());
 }
 
