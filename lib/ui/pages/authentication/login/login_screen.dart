@@ -1,8 +1,10 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:red_peetoze/domain/controller/connectivity.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/ui/pages/content/content_page.dart';
 
@@ -20,6 +22,7 @@ class _State extends State<LoginScreen> {
   TextEditingController passwd = TextEditingController();
   var _formkey = GlobalKey<FormState>();
   Controllerauth controluser = Get.find();
+  ConnectivityController connect = ConnectivityController();
 
   bool _validate = false;
 
@@ -27,14 +30,14 @@ class _State extends State<LoginScreen> {
     print('_login $theEmail $thePassword');
     try {
       await controluser.ingresarEmail(theEmail, thePassword);
-      if (controluser.userf != 'Ingrese sus datos' || controluser.userf == '') {
-        Future.delayed(Duration(seconds: 2));
+      if (controluser.userf != 'Ingrese sus datos' && controluser.userf != '') {
+        Future.delayed(const Duration(seconds: 2));
         Get.offNamed('/content');
       }
     } catch (err) {
       print(err.toString());
-      Get.snackbar('Fallo', 'revise sus datos',
-          icon: Icon(Icons.person, color: Colors.red),
+      Get.snackbar('Login', 'Ingrese un Email Válido',
+          icon: const Icon(Icons.person, color: Colors.red),
           snackPosition: SnackPosition.BOTTOM);
     }
 
@@ -52,15 +55,15 @@ class _State extends State<LoginScreen> {
       await controluser.ingresarGoogle();
       if (controluser.userf != 'Ingrese sus datos' ||
           controluser.userf.isEmpty) {
-        Future.delayed(Duration(seconds: 2));
-        Get.to(() => ContentPage());
+        Future.delayed(const Duration(seconds: 2));
+        Get.to(() => const ContentPage());
       }
     } catch (err) {
       print(err.toString());
       Get.snackbar(
         "Login",
         err.toString(),
-        icon: Icon(Icons.person, color: Colors.red),
+        icon: const Icon(Icons.person, color: Colors.red),
         snackPosition: SnackPosition.BOTTOM,
       );
     }
@@ -68,6 +71,7 @@ class _State extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(connect.connected);
     return Scaffold(
         body: GetBuilder<Controllerauth>(
           init: Controllerauth(),
@@ -133,7 +137,13 @@ class _State extends State<LoginScreen> {
                                     shape: const StadiumBorder(),
                                     mini: false,
                                     onPressed: () async {
-                                      _inicio(usuario.text, passwd.text);
+                                      // ignore: unrelated_type_equality_checks
+                                      Obx(() => (connect.connected)
+                                          ? _inicio(usuario.text, passwd.text)
+                                          : const GetSnackBar(
+                                              title: "Sin Conexión",
+                                              duration: Duration(seconds: 5),
+                                            ));
                                     },
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 15.0, horizontal: 30.0),
@@ -141,11 +151,11 @@ class _State extends State<LoginScreen> {
                                 ),
                               ),
                             ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Obx(() => Text(controluser.userf)),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextButton(
