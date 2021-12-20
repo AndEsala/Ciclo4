@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'package:red_peetoze/data/services/location.dart';
-import 'package:red_peetoze/domain/controller/control_location.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:get/get.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/domain/controller/firestore.dart';
 import 'package:red_peetoze/domain/controller/locations.dart';
-import 'package:red_peetoze/domain/models/location_model.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
-import 'package:red_peetoze/domain/use_cases/controllers/location_management.dart';
-import 'package:red_peetoze/domain/use_cases/controllers/notification.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/permissions.dart';
 import 'package:red_peetoze/ui/pages/content/location/widgets/location_card.dart';
 import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
 import 'package:workmanager/workmanager.dart';
 
-class LocationScreen extends StatelessWidget {
-  // UsersOffers empty constructor
-  LocationScreen({Key? key}) : super(key: key);
+class LocationScreen extends StatefulWidget {
+  const LocationScreen({Key? key}) : super(key: key);
+
+  @override
+  _LocationScreenState createState() => _LocationScreenState();
 }
-// ignore: non_constant_identifier_names
+
 class _LocationScreenState extends State<LocationScreen> {
   ControllerFirestore controlp = Get.find();
   Controllerauth controluser = Get.find();
@@ -50,35 +51,13 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _uid = authController.uid;
-    final _name = authController.name;
-    _init(_uid, _name);
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Obx(
-            () => locationController.location != null
-                ? LocationCard(
-                    key: const Key("myLocationCard"),
-                    title: 'MI UBICACIÓN',
-                    lat: locationController.location!.lat,
-                    long: locationController.location!.long,
-                    onUpdate: () {
-                      if (permissionsController.locationGranted) {
-                        //&&     connectivityController.connected) {
-                        _updatePosition(_uid, _name);
-                      }
-                    },
-                  )
-                : const CircularProgressIndicator(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text(
-              'CERCA DE MÍ',
-              style: Theme.of(context).textTheme.headline1,
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(130.0),
+        child: AppBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
             ),
           ),
           automaticallyImplyLeading: false,
@@ -127,53 +106,77 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
       ),
 
-                  // By default, show a loading spinner.
-                  return const Center(child: CircularProgressIndicator());
-                },
-              );
-            } else {
-              return const CircularProgressIndicator();
-            }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-          })
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Obx(
+          () => (controlubicacion.locationlat != '')
+              ? getInfo(context, controlp.readLocations(), controluser.uid,
+                  controlubicacion.locationlat, controlubicacion.locationlo)
+              : Center(
+                  child: Icon(Icons.accessibility_new),
+                ),
+        ),
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controlubicacion.obtenerubicacion();
+        },
+        tooltip: 'Refrescar',
+        child: FaIcon(
+          FontAwesomeIcons.searchLocation,
+          color: Colors.white,
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  _init(String uid, String name) {
-    if (!permissionsController.locationGranted) {
-      permissionsController.manager.requestGpsPermission().then((granted) {
-        if (granted) {
-          locationController.locationManager = LocationManager();
-          _updatePosition(uid, name);
-        } else {
-          uiController.screenIndex = 0;
-        }
-      });
-    } else {
-      locationController.locationManager = LocationManager();
-      _updatePosition(uid, name);
-    }
-    notificationController.createChannel(
-        id: 'users-location',
-        name: 'Users Location',
-        description: 'Other users location...');
-  }
-
-  _updatePosition(String uid, String name) async {
-    final position = await locationController.manager.getCurrentLocation();
-    await locationController.manager.storeUserDetails(uid: uid, name: name);
-    locationController.location = MyLocation(
-        name: name, id: uid, lat: position.latitude, long: position.longitude);
-    Workmanager().registerPeriodicTask(
-      "1",
-      "locationPeriodicTask",
+  displayNotification({required String title, required String body}) async {
+    final _plugin = FlutterLocalNotificationsPlugin();
+    print("doing test");
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'your channel id', 'your channel name',
+        importance: Importance.max, priority: Priority.high);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
+    await _plugin.show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+      payload: 'It could be anything you pass',
     );
   }
+}
+
+@override
+Widget getInfo(BuildContext context, Stream<QuerySnapshot> ct, String uid,
+    String lat, String lo) {
+  return StreamBuilder(
+    stream: ct,
+    /*FirebaseFirestore.instance
+        .collection('clientes')
+        .snapshots(),*/ //En esta línea colocamos el el objeto Future que estará esperando una respuesta
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      print(snapshot.connectionState);
+      switch (snapshot.connectionState) {
+
+        //En este case estamos a la espera de la respuesta, mientras tanto mostraremos el loader
+        case ConnectionState.waiting:
+          return Center(child: CircularProgressIndicator());
+
+        case ConnectionState.active:
+          if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+          // print(snapshot.data);
+          return snapshot.data != null
+              ? VistaLocations(
+                  locations: snapshot.data!.docs, uid: uid, lat: lat, lo: lo)
+              : Text('Sin Datos');
+        default:
+          return Text('Presiona el boton para recargar');
+      }
+    },
+  );
 }
