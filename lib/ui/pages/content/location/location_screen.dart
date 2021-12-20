@@ -15,6 +15,8 @@ import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dar
 import 'package:workmanager/workmanager.dart';
 
 class LocationScreen extends StatefulWidget {
+  const LocationScreen({Key? key}) : super(key: key);
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
