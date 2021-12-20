@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:red_peetoze/domain/controller/locations.dart';
 import 'package:red_peetoze/ui/pages/content/location/widgets/location_card.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class VistaLocations extends StatelessWidget {
   final List locations;

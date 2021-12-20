@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:red_peetoze/domain/controller/control_state.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
-import 'package:red_peetoze/domain/models/user_states.dart';
 
 import 'package:red_peetoze/ui/widgets/card.dart';
 

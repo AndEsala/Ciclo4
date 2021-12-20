@@ -71,30 +71,10 @@ class _State extends State<ActivScreen> {
                   primary: Colors.blue, shape: StadiumBorder()),
             ),
             ContentActy(
-              title: "Chats",
+              title: "Chat",
               states: const [],
               redirect: 'chats',
             ),
-            TextButton(
-                onPressed: () {
-                  Get.offNamed('/notify');
-                },
-                child: Text('Notificaciones')),
-            ContentActy(
-              title: "Notificaciones",
-              states: itemsNotify,
-              redirect: 'notifys',
-            ),
-            TextButton(
-                onPressed: () {
-                  Get.offNamed('/adoption');
-                },
-                child: Text('Adopción')),
-            ContentActy(
-              title: "Adopción",
-              states: itemsAdop,
-              redirect: 'adopcion',
-            )
           ],
         );
       },

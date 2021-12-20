@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:red_peetoze/ui/widgets/card.dart';
 
 class OfferCard extends StatelessWidget {
-  final String title, content, arch, level;
+  final String title, content, pet;
   final int payment;
-  final VoidCallback onCopy, onApply;
 
   // OfferCard constructor
   const OfferCard(
       {Key? key,
       required this.title,
       required this.content,
-      required this.arch,
-      required this.level,
-      required this.payment,
-      required this.onCopy,
-      required this.onApply})
+      required this.pet,
+      required this.payment})
       : super(key: key);
 
   // We create a Stateless widget that contais an AppCard,
@@ -27,29 +21,9 @@ class OfferCard extends StatelessWidget {
     Color primaryColor = Theme.of(context).colorScheme.primary;
     return AppCard(
       title: title,
-
-      content: Text(
-        content,
-        style: Theme.of(context).textTheme.bodyText1,
+      content: Image(
+        image: NetworkImage(content),
       ),
-      // topRightWidget widget as an IconButton
-      topRightWidget: IconButton(
-        icon: Icon(
-          Icons.copy_outlined,
-          color: primaryColor,
-        ),
-        onPressed: () {
-          Clipboard.setData(ClipboardData(text: content));
-          Get.showSnackbar(
-            GetBar(
-              message: "Se ha copiado la oferta al portapapeles.",
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        },
-      ),
-      // extraContent widget as a column that contains more details about the offer
-      // and an extra action (onApply)
       extraContent: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -58,24 +32,12 @@ class OfferCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Icon(
-                  Icons.architecture,
+                  Icons.pets,
                   color: primaryColor,
                 ),
               ),
               Text(
-                arch,
-                style: Theme.of(context).textTheme.caption,
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Icon(
-                  Icons.developer_mode_outlined,
-                  color: primaryColor,
-                ),
-              ),
-              Text(
-                level,
+                pet,
                 style: Theme.of(context).textTheme.caption,
               ),
               const Spacer(),

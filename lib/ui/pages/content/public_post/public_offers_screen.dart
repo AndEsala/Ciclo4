@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:red_peetoze/domain/models/animals.dart';
 import 'widgets/offer_card.dart';
+
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class PublicScreen extends StatefulWidget {
   // PublicOffersScreen empty constructor
@@ -10,24 +14,71 @@ class PublicScreen extends StatefulWidget {
 }
 
 class _State extends State<PublicScreen> {
-  final items = List<String>.generate(20, (i) => "Item $i");
+  // ignore: unused_field
+  late Future<List<Animal>> _animales;
+
+  /* final items = List<String>.generate(2, (i) => "Item $i"); */
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return OfferCard(
-          title: 'Desarrollador backend de NodeJs',
-          content:
-              'Estamos buscando un desarrollador backend independiente de NodeJS para trabajar en el backend de una aplicación nativa de Android. Alguien que pueda ayudarnos en la creación de una aplicación móvil de redes sociales basada en video desde cero. Este sería un puesto remunerado con la opción de trabajar desde casa. Una oportunidad de aprender y desarrollar algo desde cero.',
-          arch: 'Android',
-          level: 'Experto',
-          payment: 3000000,
-          onCopy: () => {},
-          onApply: () => {},
+    return FutureBuilder(
+      future: _animales,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView(children: listAnimals(snapshot.data));
+        } else if (snapshot.hasError) {
+          print(snapshot.error);
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animales = listAnimales();
+  }
+
+  Future<List<Animal>> listAnimales() async {
+    final url = Uri.parse(
+        'https://api.giphy.com/v1/gifs/search?api_key=g1NrAfZ541uFVBy9YHv2twOYgfHaulpj&q=dogs&limit=10&offset=0&rating=g&lang=es');
+    final res = await http.get(url);
+
+    List<Animal> animals = [];
+
+    if (res.statusCode == 200) {
+      String body = utf8.decode(res.bodyBytes);
+      final jsonData = jsonDecode(body);
+
+      for (var item in jsonData['data']) {
+        animals.add(Animal(
+            img: item['images']['downsized']['url'], titulo: item['title']));
+      }
+
+      return animals;
+    } else {
+      throw Exception("Falló la conexión");
+    }
+  }
+
+  List<Widget> listAnimals(data) {
+    List<Widget> listAni = [];
+
+    for (var anil in data) {
+      OfferCard cardAnimal = OfferCard(
+        title: anil.titulo,
+        content: anil.img,
+        pet: "Mascota",
+        payment: 250000,
+      );
+
+      listAni.add(cardAnimal);
+    }
+
+    return listAni;
   }
 }
