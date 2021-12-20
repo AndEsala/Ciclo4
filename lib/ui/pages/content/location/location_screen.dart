@@ -4,25 +4,49 @@ import 'package:get/get.dart';
 import 'package:red_peetoze/data/services/location.dart';
 import 'package:red_peetoze/domain/controller/control_location.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
+import 'package:red_peetoze/domain/controller/firestore.dart';
+import 'package:red_peetoze/domain/controller/locations.dart';
 import 'package:red_peetoze/domain/models/location_model.dart';
+import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/location_management.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/notification.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/permissions.dart';
-import 'package:red_peetoze/domain/use_cases/controllers/ui.dart';
+import 'package:red_peetoze/ui/pages/content/location/widgets/location_card.dart';
+import 'package:red_peetoze/ui/pages/content/location/widgets/vista_location.dart';
 import 'package:workmanager/workmanager.dart';
-import 'widgets/location_card.dart';
 
 class LocationScreen extends StatelessWidget {
   // UsersOffers empty constructor
   LocationScreen({Key? key}) : super(key: key);
+}
+// ignore: non_constant_identifier_names
+class _LocationScreenState extends State<LocationScreen> {
+  ControllerFirestore controlp = Get.find();
+  Controllerauth controluser = Get.find();
+  Controllerlocations controlubicacion = Get.find();
+  ControllerFirestore controlguardarloc = Get.find();
+  ConnectivityController connectivityController = Get.find();
+  PermissionsController permissionsController = Get.find();
 
-  final authController = Get.find<Controllerauth>();
-  final permissionsController = Get.find<PermissionsController>();
-  // final connectivityController = Get.find<ConnectivityController>();
-  final uiController = Get.find<UIController>();
-  final locationController = Get.find<LocationController>();
-  final notificationController = Get.find<NotificationController>();
-  final service = LocationService();
+  @override
+  void initState() {
+    super.initState();
+    Workmanager().registerPeriodicTask(
+      "1",
+      "ObtenerUbicacionesPeriodicas",
+    );
+    controlubicacion.obtenerubicacion();
+    _initNotificaciones();
+  }
+
+  _initNotificaciones() async {
+    final _plugin = FlutterLocalNotificationsPlugin();
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    await _plugin.initialize(initializationSettings);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,38 +81,51 @@ class LocationScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          // ListView on remaining screen space
-          Obx(() {
-            if (locationController.location != null) {
-              var futureLocations = service.fecthData(
-                map: locationController.location!.toJson,
-              );
-              return FutureBuilder<List<UserLocation>>(
-                future: futureLocations,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final items = snapshot.data!;
-                    notificationController.show(
-                        title: 'Egresados cerca.',
-                        body:
-                            'Hay ${items.length} egresados cerca de tu ubicación...');
-                    return ListView.builder(
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        UserLocation location = items[index];
-                        return LocationCard(
-                            title: location.name,
-                            distance: location.distance,
-                            lat: 0,
-                            long: 0);
-                      },
-                      // Avoid scrollable inside scrollable
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
+          automaticallyImplyLeading: false,
+          flexibleSpace: FlexibleSpaceBar(
+            stretchModes: const <StretchMode>[
+              StretchMode.zoomBackground,
+              StretchMode.blurBackground,
+              StretchMode.fadeTitle,
+            ],
+            background: Column(
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
+              // mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  height: 130,
+                  child: Obx(
+                    () => LocationCard(
+                        title: 'MI UBICACIÓN',
+                        lat: controlubicacion.locationlat,
+                        long: controlubicacion.locationlo,
+                        onUpdate: () {
+                          if (permissionsController.locationGranted &&
+                              connectivityController.connected) {
+                            //  _updatePosition(_uid, _name);
+                            controlubicacion.obtenerubicacion();
+                            var ubicacion = <String, dynamic>{
+                              'lat': controlubicacion.locationlat,
+                              'lo': controlubicacion.locationlo,
+                              'name': controluser.name,
+                              'uid': controluser.uid,
+                            };
+                            controlguardarloc.guardarubicacion(
+                                ubicacion, controluser.uid);
+                            displayNotification(
+                                title: 'Cerca de Mi',
+                                body:
+                                    '${controlubicacion.cercanos}  Amigos cerca a  mi Ubicaion');
+                          }
+                        }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          backgroundColor: Colors.blue[50],
+        ),
+      ),
 
                   // By default, show a loading spinner.
                   return const Center(child: CircularProgressIndicator());
@@ -97,6 +134,12 @@ class LocationScreen extends StatelessWidget {
             } else {
               return const CircularProgressIndicator();
             }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
           })
         ],
       ),

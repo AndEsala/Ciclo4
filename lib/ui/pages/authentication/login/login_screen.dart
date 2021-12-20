@@ -1,12 +1,10 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:red_peetoze/domain/controller/connectivity.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
-/* import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart'; */
+import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 import 'package:red_peetoze/ui/pages/content/content_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,15 +20,14 @@ class LoginScreen extends StatefulWidget {
 class _State extends State<LoginScreen> {
   TextEditingController usuario = TextEditingController();
   TextEditingController passwd = TextEditingController();
-  final connectivityController = Get.find<ConnectivityController>();
+  late ConnectivityController connectivityController;
 
   Controllerauth controluser = Get.find();
-  ConnectivityController connect = ConnectivityController();
 
   @override
   void initState() {
     autoLogIn();
-    // connectivityController = Get.find<ConnectivityController>();
+    connectivityController = Get.find<ConnectivityController>();
     super.initState();
   }
 
@@ -54,8 +51,8 @@ class _State extends State<LoginScreen> {
     print('_login $theEmail $thePassword');
     try {
       await controluser.ingresarEmail(theEmail, thePassword);
-      if (controluser.userf != 'Ingrese sus datos' && controluser.userf != '') {
-        Future.delayed(const Duration(seconds: 2));
+      if (controluser.userf != 'Ingrese sus datos' || controluser.userf == '') {
+        Future.delayed(Duration(seconds: 2));
         Get.offNamed('/content');
       } else {
         Future.delayed(Duration(seconds: 2));
@@ -65,8 +62,8 @@ class _State extends State<LoginScreen> {
       }
     } catch (err) {
       print(err.toString());
-      Get.snackbar('Login', 'Ingrese un Email Válido',
-          icon: const Icon(Icons.person, color: Colors.red),
+      Get.snackbar('Fallo', 'revise sus datos',
+          icon: Icon(Icons.person, color: Colors.red),
           snackPosition: SnackPosition.BOTTOM);
     }
   }
@@ -84,7 +81,7 @@ class _State extends State<LoginScreen> {
       Get.snackbar(
         "Login",
         err.toString(),
-        icon: const Icon(Icons.person, color: Colors.red),
+        icon: Icon(Icons.person, color: Colors.red),
         snackPosition: SnackPosition.BOTTOM,
       );
     }

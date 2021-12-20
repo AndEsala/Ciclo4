@@ -4,9 +4,11 @@ import 'package:location/location.dart';
 class Controllerlocations extends GetxController {
   late Rx<dynamic> _posicionlat = "".obs;
   late Rx<dynamic> _posicionlo = "".obs;
+  late Rx<dynamic> _cercanos = "0".obs;
 
   String get locationlat => _posicionlat.value;
   String get locationlo => _posicionlo.value;
+  String get cercanos => _cercanos.value;
 
   Future<void> obtenerubicacion() async {
     late LocationData _posicion;
@@ -35,5 +37,9 @@ class Controllerlocations extends GetxController {
     print('Posicion:-> ' + _posicion.toString());
     _posicionlat.value = _posicion.latitude.toString();
     _posicionlo.value = _posicion.longitude.toString();
+  }
+
+  set cercanos(String cercanos) {
+    _cercanos.value = cercanos;
   }
 }
