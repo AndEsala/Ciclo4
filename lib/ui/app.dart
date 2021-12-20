@@ -51,7 +51,7 @@ class _AppState extends State<App> {
         if (snapshot.connectionState == ConnectionState.done) {
           // _firebaseStateInit();
           return GetMaterialApp(
-            title: 'Red Egresados MinTIC',
+            title: 'Red Peetoze',
             // Quitamos el banner DEBUG
             debugShowCheckedModeBanner: false,
             // Establecemos el tema claro
@@ -119,16 +119,4 @@ class _AppState extends State<App> {
         Get.put(NotificationController());
     notificationController.initialize();
   }
-
-  // _firebaseStateInit() {
-  //   Controllerauth authController = Get.find<Controllerauth>();
-  //   // Setting manager
-  //   authController.authManagement = AuthManagement(
-  //     auth: PasswordAuth(),
-  //   );
-  //   // Watching auth state changes
-  //   AuthInterface.authStream.listen(
-  //     (user) => authController.currentUser = user,
-  //   );
-  // }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:red_peetoze/domain/use_cases/controllers/ui.dart';
 
 class CustomAppBar extends AppBar {
   final BuildContext context;
@@ -7,6 +8,7 @@ class CustomAppBar extends AppBar {
   final Widget tile;
   final Widget iconPets;
   final VoidCallback onSignOff;
+  final UIController controller;
 
   // Creating a custom AppBar that extends from Appbar with super();
   CustomAppBar(
@@ -15,6 +17,7 @@ class CustomAppBar extends AppBar {
       required this.picUrl,
       required this.tile,
       required this.iconPets,
+      required this.controller,
       required this.onSignOff})
       : super(
           key: key,
@@ -36,8 +39,9 @@ class CustomAppBar extends AppBar {
                 Icons.brightness_4_rounded,
               ),
               onPressed: () {
-                Get.changeThemeMode(
-                    Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                // Get.changeThemeMode(
+                //     Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                controller.manager.changeTheme(isDarkMode: !Get.isDarkMode);
               },
             ),
             IconButton(
