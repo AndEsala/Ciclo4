@@ -4,7 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:red_peetoze/domain/controller/control_location.dart';
+
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/conectivity.dart';
 import 'package:red_peetoze/domain/use_cases/controllers/notification.dart';

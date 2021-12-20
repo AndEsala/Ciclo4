@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:red_peetoze/data/services/location.dart';
-import 'package:red_peetoze/domain/controller/control_location.dart';
+
 import 'package:red_peetoze/domain/controller/controlchat.dart';
 import 'package:red_peetoze/domain/controller/controllerauth.dart';
 import 'package:red_peetoze/data/controllerrealtime.dart';
@@ -27,14 +27,13 @@ void main() async {
     updatePositionInBackground,
     isInDebugMode: true,
   );
-  // Get.put(Controllerauth());
   Get.put(ControllerRealtime());
   Get.put(Controlchat());
   Get.put(ControllerFirestore());
   Get.put(PermissionsController());
   Get.put(Controllerlocations());
 
-  Get.put(LocationController());
+  // Get.put(LocationController());
 
   runApp(const App());
 }
